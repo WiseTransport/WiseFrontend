@@ -7,7 +7,7 @@ import "leaflet/dist/leaflet.css";
 const Map = () => {
   return (
     <MapContainer
-      className="-z-40  "
+      className="-z-40 "
       center={[42.5, 27.47]}
       zoom={13}
       minZoom={12}

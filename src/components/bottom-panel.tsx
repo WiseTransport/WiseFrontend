@@ -28,7 +28,7 @@ export default function App() {
           {["bottom"].map((placement) => (
             <Button
               key={placement}
-              className="capitalize z-10 w-full bg-white"
+              className="capitalize z-10 w-full bg-[#EC442C] rounded-none"
               onPress={() => handleOpen(placement as "bottom")}
             >
               <ArrowUpSVG classes="1" />
