@@ -1,7 +1,21 @@
 import { Navbar, NavbarContent, Input } from "@heroui/react";
+import { useState } from "react";
 
 import SearchSVG from "@/svg/SearchSVG";
-export default function App() {
+
+const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
+  const [query, setQuery] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && query.trim() !== "") {
+      onSearch(query);
+    }
+  };
+
   return (
     <Navbar className=" top-10 fixed bg-transparent" isBlurred={false}>
       <NavbarContent
@@ -21,9 +35,13 @@ export default function App() {
           size="sm"
           startContent={<SearchSVG classes="1" />}
           type="search"
+          value={query}
+          onChange={handleChange}
+          onKeyPress={handleKeyPress}
         />
       </NavbarContent>
     </Navbar>
   );
-}
-export { App as Navbar };
+};
+
+export default SearchBar;

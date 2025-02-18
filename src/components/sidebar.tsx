@@ -41,7 +41,7 @@ export default function Sidebar() {
       <Popover
         isOpen={isPopover1Open}
         onOpenChange={setIsPopover1Open}
-        placement="left"
+        placement="top"
       >
         <PopoverTrigger asChild>
           <Button className="hidden" />
@@ -57,6 +57,7 @@ export default function Sidebar() {
         isOpen={isPopoverOpen}
         onOpenChange={setIsPopoverOpen}
         placement="left"
+        className="relative"
       >
         <PopoverTrigger asChild>
           <Button className="hidden" />
