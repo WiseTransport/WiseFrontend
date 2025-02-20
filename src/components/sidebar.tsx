@@ -18,14 +18,14 @@ export default function Sidebar() {
   const [isPopover1Open, setIsPopover1Open] = useState(false);
 
   return (
-    <div className="flex flex-col gap-4 justify-evenly items-end fixed top-32 right-4 ml-3 mr-3 rounded-full max-w-sm">
+    <div className="fixed z-10 flex flex-col gap-4 justify-evenly items-end top-32 right-4 ml-3 mr-3 rounded-full max-w-sm">
       <Button className="bg-white rounded-full px-0 min-w-0 w-12 h-12 shadow-md">
-        <SettingsSVG classes="1" />
+        <SettingsSVG />
       </Button>
       <Dropdown>
         <DropdownTrigger>
           <Button className="bg-white rounded-full w-12 h-12 shadow-md px-0 min-w-0">
-            <ClockSVG classes="1" />
+            <ClockSVG />
           </Button>
         </DropdownTrigger>
         <DropdownMenu>

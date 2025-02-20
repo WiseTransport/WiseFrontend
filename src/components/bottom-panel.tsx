@@ -23,18 +23,16 @@ export default function App() {
 
   return (
     <>
-      <div>
-        <div className="flex flex-wrap gap-3">
-          {["bottom"].map((placement) => (
-            <Button
-              key={placement}
-              className="capitalize z-10 w-full bg-[#EC442C] rounded-none"
-              onPress={() => handleOpen(placement as "bottom")}
-            >
-              <ArrowUpSVG classes="1" />
-            </Button>
-          ))}
-        </div>
+      <div className="fixed w-full bottom-0 flex flex-wrap gap-3">
+        {["bottom"].map((placement) => (
+          <Button
+            key={placement}
+            className="capitalize w-full bg-[#EC442C] rounded-none"
+            onPress={() => handleOpen(placement as "bottom")}
+          >
+            <ArrowUpSVG classes="1" />
+          </Button>
+        ))}
       </div>
       <Drawer
         isOpen={isOpen}

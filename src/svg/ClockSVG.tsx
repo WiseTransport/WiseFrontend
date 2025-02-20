@@ -1,4 +1,4 @@
-export default function BusSVG({ classes }: { classes: string | undefined }) {
+export default function BusSVG({ classes }: { classes?: string }) {
   return (
     <svg
       className={classes}

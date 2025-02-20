@@ -8,11 +8,10 @@ import { useEffect } from "react";
 const Map = ({ location }: { location: { lat: number; lon: number } }) => {
   return (
     <MapContainer
-      className="-z-40 "
       center={[42.5, 27.47]}
       zoom={13}
       minZoom={12}
-      style={{ height: "95vh", width: "100%" }}
+      style={{ height: "95vh", width: "100%", position: "fixed", left: 0, top: 0 }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
