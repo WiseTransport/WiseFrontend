@@ -1,8 +1,8 @@
 export default function BusSVG({ classes }: { classes: string | undefined }) {
   return (
     <svg
-      className={classes}
       aria-hidden="true"
+      className={classes}
       fill="none"
       focusable="false"
       height={18}

@@ -1,23 +1,35 @@
-// components/Map.tsx
 "use client";
 
 import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 
-const Map = ({ location }: { location: { lat: number; lon: number } }) => {
+const Map = ({
+  location,
+  setLocation,
+}: {
+  setLocation: ({}: any) => void;
+  location: { latitude: number; longitude: number };
+}) => {
   return (
     <MapContainer
       center={[42.5, 27.47]}
-      zoom={13}
       minZoom={12}
-      style={{ height: "95vh", width: "100%", position: "fixed", left: 0, top: 0 }}
+      style={{
+        height: "95vh",
+        width: "100%",
+        position: "fixed",
+        left: 0,
+        top: 0,
+      }}
+      zoom={13}
     >
       <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[location.lat, location.lon]} />
+      <Marker position={[location.latitude, location.longitude]} />
+
       <MapUpdater location={location} />
     </MapContainer>
   );
@@ -26,13 +38,15 @@ const Map = ({ location }: { location: { lat: number; lon: number } }) => {
 const MapUpdater = ({
   location,
 }: {
-  location: { lat: number; lon: number };
+  location: { latitude: number; longitude: number };
 }) => {
   const map = useMap();
+
   useEffect(() => {
-    map.setView([location.lat, location.lon], 13);
+    map.setView([location.latitude, location.longitude], 13);
   }, [location, map]);
+
   return null;
 };
 
-export default Map;
+export { Map, MapUpdater };

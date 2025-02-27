@@ -17,7 +17,10 @@ const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
   };
 
   return (
-    <Navbar className="top-10 relative bg-transparent" isBlurred={false}>
+    <Navbar
+      className="mx-auto top-10 relative bg-transparent"
+      isBlurred={false}
+    >
       <NavbarContent
         as="div"
         className="flex ml-3 mr-3 w-11/12 h-14 bg-white rounded-full max-w-sm shadow-md"

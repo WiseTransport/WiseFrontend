@@ -1,7 +1,3 @@
-import { Link } from "@nextui-org/link";
-
-import SearchBar from "@/components/searchBar";
-
 export default function DefaultLayout({
   children,
 }: {
@@ -12,7 +8,7 @@ export default function DefaultLayout({
       <main className="container mx-auto max-w-7xl px-0  flex-grow pt-0">
         {children}
       </main>
-      <footer className="w-full flex items-center justify-center py-3"></footer>
+      <footer className="w-full flex items-center justify-center py-3" />
     </div>
   );
 }
