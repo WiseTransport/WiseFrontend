@@ -1,25 +1,13 @@
-# Vite & NextUI Template
-
-This is a template for creating applications using Vite and NextUI (v2).
-
-[Try it on CodeSandbox](https://githubbox.com/nextui-org/vite-template)
-
 ## Technologies Used
 
 - [Vite](https://vitejs.dev/guide/)
-- [NextUI](https://nextui.org)
+- [NextUI](https://heroui.org)
 - [Tailwind CSS](https://tailwindcss.com)
 - [Tailwind Variants](https://tailwind-variants.org)
 - [TypeScript](https://www.typescriptlang.org)
 - [Framer Motion](https://www.framer.com/motion)
 
 ## How to Use
-
-To clone the project, run the following command:
-
-```bash
-git clone https://github.com/nextui-org/vite-template.git
-```
 
 ### Install dependencies
 
@@ -47,4 +35,4 @@ After modifying the `.npmrc` file, you need to run `pnpm install` again to ensur
 
 ## License
 
-Licensed under the [MIT license](https://github.com/nextui-org/vite-template/blob/main/LICENSE).
+Licensed under the [GPL v3](https://www.gnu.org/licenses/gpl-3.0.txt).

@@ -1,11 +1,14 @@
-export default function BusSVG({ classes }: { classes?: string }) {
+import { HeroUISVGProps } from "@/svg/shared.ts"
+
+export default function SettingsSVG(
+  {fill = "none", size, height, width}: HeroUISVGProps
+) {
   return (
     <svg
-      className={classes}
-      fill="none"
-      height="800px"
+      fill={fill}
+      height={size || height}
       viewBox="0 0 24 24"
-      width="800px"
+      width={size || width}
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle cx="12" cy="12" r="3" stroke="#EC442C" strokeWidth="1.5" />
@@ -16,5 +19,5 @@ export default function BusSVG({ classes }: { classes?: string }) {
         strokeWidth="1.5"
       />
     </svg>
-  );
+  )
 }

@@ -1,44 +1,35 @@
-import { FC, useState, useEffect } from "react";
-import { VisuallyHidden } from "@react-aria/visually-hidden";
-import { SwitchProps, useSwitch } from "@heroui/switch";
-import clsx from "clsx";
+import { FC, useState, useEffect } from "react"
+import { VisuallyHidden } from "@react-aria/visually-hidden"
+import { SwitchProps, useSwitch } from "@heroui/switch"
+import clsx from "clsx"
 
-import { useTheme } from "@/hooks/use-theme";
-import { SunFilledIcon, MoonFilledIcon } from "@/components/icons";
+import { useTheme } from "@/hooks/use-theme"
+import { SunFilledIcon, MoonFilledIcon } from "@/components/icons"
 
 export interface ThemeSwitchProps {
-  className?: string;
-  classNames?: SwitchProps["classNames"];
+  className?: string
+  classNames?: SwitchProps["classNames"]
 }
 
-export const ThemeSwitch: FC<ThemeSwitchProps> = ({
-  className,
-  classNames,
-}) => {
-  const [isMounted, setIsMounted] = useState(false);
+export const ThemeSwitch: FC<ThemeSwitchProps> = ({ className, classNames }) => {
+  const [isMounted, setIsMounted] = useState(false)
 
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme()
 
-  const onChange = toggleTheme;
+  const onChange = toggleTheme
 
-  const {
-    Component,
-    slots,
-    isSelected,
-    getBaseProps,
-    getInputProps,
-    getWrapperProps,
-  } = useSwitch({
-    isSelected: theme === "light",
-    onChange,
-  });
+  const { Component, slots, isSelected, getBaseProps, getInputProps, getWrapperProps } =
+    useSwitch({
+      isSelected: theme === "light",
+      onChange,
+    })
 
   useEffect(() => {
-    setIsMounted(true);
-  }, [isMounted]);
+    setIsMounted(true)
+  }, [isMounted])
 
   // Prevent Hydration Mismatch
-  if (!isMounted) return <div className="w-6 h-6" />;
+  if (!isMounted) return <div className="w-6 h-6" />
 
   return (
     <Component
@@ -73,12 +64,8 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
           ),
         })}
       >
-        {isSelected ? (
-          <MoonFilledIcon size={22} />
-        ) : (
-          <SunFilledIcon size={22} />
-        )}
+        {isSelected ? <MoonFilledIcon size={22} /> : <SunFilledIcon size={22} />}
       </div>
     </Component>
-  );
-};
+  )
+}

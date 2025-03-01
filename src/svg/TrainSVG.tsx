@@ -1,12 +1,14 @@
-export default function TrainSVG({ classes }: { classes: string | undefined }) {
+import { HeroUISVGProps } from "@/svg/shared.ts"
+
+export default function TrainSVG(
+  {fill = "none", size, height, width}: HeroUISVGProps
+) {
   return (
     <svg
-      className={classes}
-      data-name="Layer 1"
-      fill="none"
-      height="120"
-      id="Layer_1"
-      width="120"
+      fill={fill}
+      height={size || height}
+      viewBox="0 0 24 24"
+      width={size || width}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -70,5 +72,5 @@ export default function TrainSVG({ classes }: { classes: string | undefined }) {
         y2="13.93"
       />
     </svg>
-  );
+  )
 }

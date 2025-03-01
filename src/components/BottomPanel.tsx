@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Drawer,
   DrawerContent,
@@ -6,20 +6,20 @@ import {
   DrawerBody,
   Button,
   useDisclosure,
-} from "@heroui/react";
-import BusSVG from "@/svg/BusSVG";
-import TrainSVG from "@/svg/TrainSVG";
-import TramSVG from "@/svg/TramSVG";
-import ArrowUpSVG from "@/svg/ArrowUpSVG";
+} from "@heroui/react"
+import BusSVG from "@/svg/BusSVG"
+import TrainSVG from "@/svg/TrainSVG"
+import TramSVG from "@/svg/TramSVG"
+import ArrowUpSVG from "@/svg/ArrowUpSVG"
 
 export default function App() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [placement, setPlacement] = React.useState<"bottom">("bottom");
+  const { isOpen, onOpen, onOpenChange } = useDisclosure()
+  const [placement, setPlacement] = React.useState<"bottom">("bottom")
 
   const handleOpen = (placement: "bottom") => {
-    setPlacement(placement);
-    onOpen();
-  };
+    setPlacement(placement)
+    onOpen()
+  }
 
   return (
     <>
@@ -101,6 +101,6 @@ export default function App() {
         </DrawerContent>
       </Drawer>
     </>
-  );
+  )
 }
-export { App as BottomPanel };
+export { App as BottomPanel }

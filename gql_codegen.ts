@@ -6,9 +6,18 @@ const config: CodegenConfig = {
   schema: GRAPHQL_URL,
   documents: ["./src/api/queries/**/*.ts"],
   generates: {
-    "./src/gql/": {
-      preset: "client",
+    './src/graphql/': {
+      preset: 'client',
+      config: {
+        documentMode: 'string'
+      }
     },
+    './schema.graphql': {
+      plugins: ['schema-ast'],
+      config: {
+        includeDirectives: true
+      }
+    }
   },
 }
 

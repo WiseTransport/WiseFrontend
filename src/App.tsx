@@ -1,9 +1,9 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom"
 
-import IndexPage from "@/pages";
-import PricingPage from "@/pages/pricing";
-import BlogPage from "@/pages/blog";
-import AboutPage from "@/pages/about";
+import IndexPage from "@/pages"
+import PricingPage from "@/pages/pricing"
+import BlogPage from "@/pages/blog"
+import AboutPage from "@/pages/about"
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Route element={<BlogPage />} path="/blog" />
       <Route element={<AboutPage />} path="/about" />
     </Routes>
-  );
+  )
 }
 
-export default App;
+export default App

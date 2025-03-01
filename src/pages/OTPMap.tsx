@@ -19,9 +19,7 @@ const OTPMap = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker position={[10, 10]} />
-      <LayerGroup>
-        Layer
-      </LayerGroup>
+      <LayerGroup>Layer</LayerGroup>
     </MapContainer>
   )
 }

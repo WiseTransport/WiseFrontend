@@ -1,29 +1,26 @@
-import { Navbar, NavbarContent, Input } from "@heroui/react";
-import { useState } from "react";
+import { Navbar, NavbarContent, Input } from "@heroui/react"
+import { KeyboardEvent, ChangeEvent, useState } from "react"
 
-import SearchSVG from "@/svg/SearchSVG";
+import SearchSVG from "@/svg/SearchSVG"
 
 const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState("")
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value)
+  }
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && query.trim() !== "") {
-      onSearch(query);
+      onSearch(query)
     }
-  };
+  }
 
   return (
-    <Navbar
-      className="mx-auto top-10 relative bg-transparent"
-      isBlurred={false}
-    >
+    <Navbar className="top-10 relative bg-transparent" isBlurred={false}>
       <NavbarContent
         as="div"
-        className="flex ml-3 mr-3 w-11/12 h-14 bg-white rounded-full max-w-sm shadow-md"
+        className="flex mx-auto w-11/12 h-14 bg-white rounded-full max-w-sm shadow-md"
         justify="center"
       >
         <Input
@@ -36,15 +33,15 @@ const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
           }}
           placeholder="Търси дестинация"
           size="sm"
-          startContent={<SearchSVG classes="1" />}
+          startContent={<div className="w-8 pr-2"><SearchSVG /></div>}
           type="search"
           value={query}
           onChange={handleChange}
-          onKeyPress={handleKeyPress}
+          onKeyUp={handleKeyPress}
         />
       </NavbarContent>
     </Navbar>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

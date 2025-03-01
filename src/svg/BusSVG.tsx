@@ -1,10 +1,14 @@
-export default function BusSVG({ classes }: { classes: string | undefined }) {
+import { HeroUISVGProps } from "@/svg/shared.ts"
+
+export default function BusSVG(
+  {fill = "none", size, height, width}: HeroUISVGProps
+) {
   return (
     <svg
-      className={classes}
-      fill="none"
-      height="70"
-      width="70"
+      fill={fill}
+      height={size || height}
+      viewBox="0 0 24 24"
+      width={size || width}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -69,5 +73,5 @@ export default function BusSVG({ classes }: { classes: string | undefined }) {
         strokeWidth="1.5"
       />
     </svg>
-  );
+  )
 }
