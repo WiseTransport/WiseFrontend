@@ -1,8 +1,5 @@
 "use client"
 
-import React from "react"
-import { Button } from "@heroui/react"
-
 import MapPointSVG from "@/svg/MapPointSVG.tsx"
 import { RoundIconButton } from "./RoundIconButton"
 
@@ -31,8 +28,8 @@ export default function CurrentGeoButton({
   }
 
   return (
-    <div className="fixed bottom-8 h-24 right-8 z-10">
-      <RoundIconButton icon={<MapPointSVG />} />
+    <div className="fixed bottom-6 h-24 right-8 z-10">
+      <RoundIconButton onPress={getUserLocation} icon={<MapPointSVG />} />
     </div>
   )
 }

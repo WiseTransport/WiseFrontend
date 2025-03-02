@@ -17,10 +17,10 @@ const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
   }
 
   return (
-    <Navbar className="top-10 relative bg-transparent" isBlurred={false}>
+    <Navbar className="top-7 relative bg-transparent max-w-none" isBlurred={false}>
       <NavbarContent
-        as="div"
-        className="flex mx-auto w-11/12 h-14 bg-white rounded-full max-w-sm shadow-md"
+        as="section"
+        className="flex mx-auto w-3/6 max-w-xl max-sm:w-full h-14 bg-white rounded-full shadow-md"
         justify="center"
       >
         <Input
@@ -29,10 +29,9 @@ const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
             mainWrapper: "h-full",
             input: "text-small",
             inputWrapper:
-              "h-full font-normal text-default-500 bg-white shadow-none text-left pl-2",
+              "h-full font-normal text-default-500 bg-white shadow-none text-left",
           }}
           placeholder="Търси дестинация"
-          size="sm"
           startContent={<div className="w-8 pr-2"><SearchSVG /></div>}
           type="search"
           value={query}

@@ -1,10 +1,9 @@
-import React from "react"
 import {
+  Button,
   Drawer,
+  DrawerBody,
   DrawerContent,
   DrawerHeader,
-  DrawerBody,
-  Button,
   useDisclosure,
 } from "@heroui/react"
 import BusSVG from "@/svg/BusSVG"
@@ -12,36 +11,36 @@ import TrainSVG from "@/svg/TrainSVG"
 import TramSVG from "@/svg/TramSVG"
 import ArrowUpSVG from "@/svg/ArrowUpSVG"
 
-export default function App() {
+export default function BottomPanel() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
-  const [placement, setPlacement] = React.useState<"bottom">("bottom")
-
-  const handleOpen = (placement: "bottom") => {
-    setPlacement(placement)
-    onOpen()
-  }
 
   return (
     <>
       <div className="fixed w-full bottom-0 flex flex-wrap gap-3">
-        {["bottom"].map((placement) => (
-          <Button
-            key={placement}
-            className="capitalize w-full bg-[#EC442C] rounded-none"
-            onPress={() => handleOpen(placement as "bottom")}
-          >
-            <ArrowUpSVG classes="1" />
-          </Button>
-        ))}
+        <Button
+          className="mx-auto w-3/6 max-w-xl bg-[#EC442C] rounded-b-none rounded-t-lg"
+          onPress={onOpen}
+        >
+          <div className="w-10 mx-auto">
+            <ArrowUpSVG />
+          </div>
+        </Button>
       </div>
       <Drawer
         isOpen={isOpen}
-        placement={placement}
+        placement="bottom"
         onOpenChange={onOpenChange}
-        className="z-1"
+        className=" w-3/6 max-w-xl sm:mx-auto mx-auto"
+        classNames={
+          {
+            wrapper: "w-full h-auto bottom-0",
+          }
+        }
+        backdrop="transparent"
+        isDismissable={false}
       >
         <DrawerContent>
-          {(onClose) => (
+          {() => (
             <>
               <div>
                 <DrawerHeader className="flex flex-col gap-1 w-full">
@@ -81,17 +80,17 @@ export default function App() {
                 <DrawerBody className="flex flex-row justify-evenly pb-8">
                   <div className="flex flex-col text-center">
                     <div className="p-5 h-16 w-16">
-                      <BusSVG classes="1" />
+                      <BusSVG />
                     </div>
                   </div>
                   <div>
                     <div className="p-5 h-16 w-16">
-                      <TramSVG classes="1" />
+                      <TramSVG />
                     </div>
                   </div>
                   <div>
                     <div className="p-5 h-16 w-16">
-                      <TrainSVG classes="1" />
+                      <TrainSVG />
                     </div>
                   </div>
                 </DrawerBody>
@@ -103,4 +102,3 @@ export default function App() {
     </>
   )
 }
-export { App as BottomPanel }

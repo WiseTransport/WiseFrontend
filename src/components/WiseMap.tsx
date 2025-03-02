@@ -3,7 +3,6 @@
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import { useEffect } from "react"
-import { WiseMapZoom } from "@/components/WiseMapZoom.tsx"
 
 const WiseMap = ({
   location,
@@ -17,7 +16,7 @@ const WiseMap = ({
       minZoom={12}
       zoomControl={false}
       style={{
-        height: "95vh",
+        height: "100%",
         width: "100%",
         position: "fixed",
         left: 0,
@@ -31,7 +30,6 @@ const WiseMap = ({
       />
       <Marker position={[location.latitude, location.longitude]} />
 
-      <WiseMapZoom />
       <MapUpdater location={location} />
     </MapContainer>
   )
