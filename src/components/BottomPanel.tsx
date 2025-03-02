@@ -30,10 +30,10 @@ export default function BottomPanel() {
         isOpen={isOpen}
         placement="bottom"
         onOpenChange={onOpenChange}
-        className=" w-3/6 max-w-xl sm:mx-auto mx-auto"
+        className="pointer-events-auto w-3/6 max-w-xl sm:mx-auto mx-auto"
         classNames={
           {
-            wrapper: "w-full h-auto bottom-0",
+            wrapper: "pointer-events-none",
           }
         }
         backdrop="transparent"
