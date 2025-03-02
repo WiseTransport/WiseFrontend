@@ -1,11 +1,7 @@
-import {
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerContent,
-  DrawerHeader,
-  useDisclosure,
-} from "@heroui/react"
+import { Drawer, DrawerBody, DrawerContent, DrawerHeader } from "@heroui/drawer"
+import { Button } from "@heroui/button"
+import { useDisclosure } from "@heroui/use-disclosure"
+
 import BusSVG from "@/svg/BusSVG"
 import TrainSVG from "@/svg/TrainSVG"
 import TramSVG from "@/svg/TramSVG"
@@ -31,11 +27,9 @@ export default function BottomPanel() {
         placement="bottom"
         onOpenChange={onOpenChange}
         className="pointer-events-auto w-3/6 max-w-xl sm:mx-auto mx-auto"
-        classNames={
-          {
-            wrapper: "pointer-events-none",
-          }
-        }
+        classNames={{
+          wrapper: "pointer-events-none",
+        }}
         backdrop="transparent"
         isDismissable={false}
       >

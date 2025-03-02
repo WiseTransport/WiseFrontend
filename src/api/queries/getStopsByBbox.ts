@@ -1,19 +1,19 @@
-import { graphql } from "@/gql"
+import { graphql } from "@/graphql"
 
-export const stopsByBboxQuery = graphql(`
-  query StopsByBboxQuery {
-    stopsByBbox(
-      maxLat: 47.566887
-      maxLon: 19.250717
-      minLat: 47.424652
-      minLon: 18.878239
-    ) {
+export const getStopsByBboxQuery = graphql(`
+  query getStopsByBbox(
+    $maxLat: Float!
+    $maxLon: Float!
+    $minLat: Float!
+    $minLon: Float!
+  ) {
+    stopsByBbox(maxLat: $maxLat, maxLon: $maxLon, minLat: $minLat, minLon: $minLon) {
       gtfsId
       name
       lat
       lon
       routes {
-        id
+        gtfsId
         shortName
       }
     }

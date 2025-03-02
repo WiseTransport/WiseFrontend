@@ -1,8 +1,6 @@
 import { HeroUISVGProps } from "@/svg/shared.ts"
 
-export default function BusSVG(
-  {fill = "none", size, height, width}: HeroUISVGProps
-) {
+export default function BusSVG({ fill = "none", size, height, width }: HeroUISVGProps) {
   return (
     <svg
       fill={fill}

@@ -1,7 +1,6 @@
 /* eslint-disable */
 import * as types from './graphql';
-
-
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -16,23 +15,38 @@ import * as types from './graphql';
  */
 type Documents = {
     "\n  query getRouteDetails($gtfsId: String!) {\n    route(id: $gtfsId) {\n      shortName\n      color\n      patterns {\n        patternGeometry {\n          points\n        }\n      }\n    }\n  }\n": typeof types.GetRouteDetailsDocument,
-    "\n  query StopsByBboxQuery {\n    stopsByBbox(\n      maxLat: 47.566887\n      maxLon: 19.250717\n      minLat: 47.424652\n      minLon: 18.878239\n    ) {\n      gtfsId\n      name\n      lat\n      lon\n      routes {\n        id\n        shortName\n      }\n    }\n  }\n": typeof types.StopsByBboxQueryDocument,
+    "\n  query getStopsByBbox(\n    $maxLat: Float!\n    $maxLon: Float!\n    $minLat: Float!\n    $minLon: Float!\n  ) {\n    stopsByBbox(maxLat: $maxLat, maxLon: $maxLon, minLat: $minLat, minLon: $minLon) {\n      gtfsId\n      name\n      lat\n      lon\n      routes {\n        gtfsId\n        shortName\n      }\n    }\n  }\n": typeof types.GetStopsByBboxDocument,
 };
 const documents: Documents = {
     "\n  query getRouteDetails($gtfsId: String!) {\n    route(id: $gtfsId) {\n      shortName\n      color\n      patterns {\n        patternGeometry {\n          points\n        }\n      }\n    }\n  }\n": types.GetRouteDetailsDocument,
-    "\n  query StopsByBboxQuery {\n    stopsByBbox(\n      maxLat: 47.566887\n      maxLon: 19.250717\n      minLat: 47.424652\n      minLon: 18.878239\n    ) {\n      gtfsId\n      name\n      lat\n      lon\n      routes {\n        id\n        shortName\n      }\n    }\n  }\n": types.StopsByBboxQueryDocument,
+    "\n  query getStopsByBbox(\n    $maxLat: Float!\n    $maxLon: Float!\n    $minLat: Float!\n    $minLon: Float!\n  ) {\n    stopsByBbox(maxLat: $maxLat, maxLon: $maxLon, minLat: $minLat, minLon: $minLon) {\n      gtfsId\n      name\n      lat\n      lon\n      routes {\n        gtfsId\n        shortName\n      }\n    }\n  }\n": types.GetStopsByBboxDocument,
 };
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ *
+ *
+ * @example
+ * ```ts
+ * const query = graphql(`query GetUser($id: ID!) { user(id: $id) { name } }`);
+ * ```
+ *
+ * The query argument is unknown!
+ * Please regenerate the types.
  */
-export function graphql(source: "\n  query getRouteDetails($gtfsId: String!) {\n    route(id: $gtfsId) {\n      shortName\n      color\n      patterns {\n        patternGeometry {\n          points\n        }\n      }\n    }\n  }\n"): typeof import('./graphql').GetRouteDetailsDocument;
+export function graphql(source: string): unknown;
+
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query StopsByBboxQuery {\n    stopsByBbox(\n      maxLat: 47.566887\n      maxLon: 19.250717\n      minLat: 47.424652\n      minLon: 18.878239\n    ) {\n      gtfsId\n      name\n      lat\n      lon\n      routes {\n        id\n        shortName\n      }\n    }\n  }\n"): typeof import('./graphql').StopsByBboxQueryDocument;
-
+export function graphql(source: "\n  query getRouteDetails($gtfsId: String!) {\n    route(id: $gtfsId) {\n      shortName\n      color\n      patterns {\n        patternGeometry {\n          points\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query getRouteDetails($gtfsId: String!) {\n    route(id: $gtfsId) {\n      shortName\n      color\n      patterns {\n        patternGeometry {\n          points\n        }\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query getStopsByBbox(\n    $maxLat: Float!\n    $maxLon: Float!\n    $minLat: Float!\n    $minLon: Float!\n  ) {\n    stopsByBbox(maxLat: $maxLat, maxLon: $maxLon, minLat: $minLat, minLon: $minLon) {\n      gtfsId\n      name\n      lat\n      lon\n      routes {\n        gtfsId\n        shortName\n      }\n    }\n  }\n"): (typeof documents)["\n  query getStopsByBbox(\n    $maxLat: Float!\n    $maxLon: Float!\n    $minLat: Float!\n    $minLon: Float!\n  ) {\n    stopsByBbox(maxLat: $maxLat, maxLon: $maxLon, minLat: $minLat, minLon: $minLon) {\n      gtfsId\n      name\n      lat\n      lon\n      routes {\n        gtfsId\n        shortName\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
+
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;

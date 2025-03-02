@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -4254,55 +4254,16 @@ export type GetRouteDetailsQueryVariables = Exact<{
 
 export type GetRouteDetailsQuery = { __typename?: 'QueryType', route?: { __typename?: 'Route', shortName?: string | null, color?: string | null, patterns?: Array<{ __typename?: 'Pattern', patternGeometry?: { __typename?: 'Geometry', points?: any | null } | null } | null> | null } | null };
 
-export type StopsByBboxQueryQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetStopsByBboxQueryVariables = Exact<{
+  maxLat: Scalars['Float']['input'];
+  maxLon: Scalars['Float']['input'];
+  minLat: Scalars['Float']['input'];
+  minLon: Scalars['Float']['input'];
+}>;
 
 
-export type StopsByBboxQueryQuery = { __typename?: 'QueryType', stopsByBbox?: Array<{ __typename?: 'Stop', gtfsId: string, name: string, lat?: number | null, lon?: number | null, routes?: Array<{ __typename?: 'Route', id: string, shortName?: string | null }> | null } | null> | null };
+export type GetStopsByBboxQuery = { __typename?: 'QueryType', stopsByBbox?: Array<{ __typename?: 'Stop', gtfsId: string, name: string, lat?: number | null, lon?: number | null, routes?: Array<{ __typename?: 'Route', gtfsId: string, shortName?: string | null }> | null } | null> | null };
 
-export class TypedDocumentString<TResult, TVariables>
-  extends String
-  implements DocumentTypeDecoration<TResult, TVariables>
-{
-  __apiType?: DocumentTypeDecoration<TResult, TVariables>['__apiType'];
 
-  constructor(private value: string, public __meta__?: Record<string, any> | undefined) {
-    super(value);
-  }
-
-  toString(): string & DocumentTypeDecoration<TResult, TVariables> {
-    return this.value;
-  }
-}
-
-export const GetRouteDetailsDocument = new TypedDocumentString(`
-    query getRouteDetails($gtfsId: String!) {
-  route(id: $gtfsId) {
-    shortName
-    color
-    patterns {
-      patternGeometry {
-        points
-      }
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<GetRouteDetailsQuery, GetRouteDetailsQueryVariables>;
-export const StopsByBboxQueryDocument = new TypedDocumentString(`
-    query StopsByBboxQuery {
-  stopsByBbox(
-    maxLat: 47.566887
-    maxLon: 19.250717
-    minLat: 47.424652
-    minLon: 18.878239
-  ) {
-    gtfsId
-    name
-    lat
-    lon
-    routes {
-      id
-      shortName
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<StopsByBboxQueryQuery, StopsByBboxQueryQueryVariables>;
+export const GetRouteDetailsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getRouteDetails"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"gtfsId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"gtfsId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"shortName"}},{"kind":"Field","name":{"kind":"Name","value":"color"}},{"kind":"Field","name":{"kind":"Name","value":"patterns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"patternGeometry"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"points"}}]}}]}}]}}]}}]} as unknown as DocumentNode<GetRouteDetailsQuery, GetRouteDetailsQueryVariables>;
+export const GetStopsByBboxDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getStopsByBbox"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"maxLat"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"maxLon"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"minLat"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"minLon"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Float"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"stopsByBbox"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"maxLat"},"value":{"kind":"Variable","name":{"kind":"Name","value":"maxLat"}}},{"kind":"Argument","name":{"kind":"Name","value":"maxLon"},"value":{"kind":"Variable","name":{"kind":"Name","value":"maxLon"}}},{"kind":"Argument","name":{"kind":"Name","value":"minLat"},"value":{"kind":"Variable","name":{"kind":"Name","value":"minLat"}}},{"kind":"Argument","name":{"kind":"Name","value":"minLon"},"value":{"kind":"Variable","name":{"kind":"Name","value":"minLon"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gtfsId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"lat"}},{"kind":"Field","name":{"kind":"Name","value":"lon"}},{"kind":"Field","name":{"kind":"Name","value":"routes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gtfsId"}},{"kind":"Field","name":{"kind":"Name","value":"shortName"}}]}}]}}]}}]} as unknown as DocumentNode<GetStopsByBboxQuery, GetStopsByBboxQueryVariables>;

@@ -1,7 +1,8 @@
-import { Navbar, NavbarContent, Input } from "@heroui/react"
+import { Navbar, NavbarContent } from "@heroui/navbar"
 import { KeyboardEvent, ChangeEvent, useState } from "react"
 
 import SearchSVG from "@/svg/SearchSVG"
+import { Input } from "@heroui/input"
 
 const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
   const [query, setQuery] = useState("")
@@ -32,7 +33,11 @@ const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
               "h-full font-normal text-default-500 bg-white shadow-none text-left",
           }}
           placeholder="Търси дестинация"
-          startContent={<div className="w-8 pr-2"><SearchSVG /></div>}
+          startContent={
+            <div className="w-8 pr-2">
+              <SearchSVG />
+            </div>
+          }
           type="search"
           value={query}
           onChange={handleChange}

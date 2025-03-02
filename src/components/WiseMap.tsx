@@ -1,8 +1,10 @@
 "use client"
 
-import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
+import { MapContainer, TileLayer, useMap } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
+import "react-leaflet-markercluster/styles"
 import { useEffect } from "react"
+import { StopRoutes } from "@/components/StopRoutes.tsx"
 
 const WiseMap = ({
   location,
@@ -12,7 +14,7 @@ const WiseMap = ({
 }) => {
   return (
     <MapContainer
-      center={[42.5, 27.47]}
+      center={[location.latitude, location.longitude]}
       minZoom={12}
       zoomControl={false}
       style={{
@@ -28,8 +30,8 @@ const WiseMap = ({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[location.latitude, location.longitude]} />
 
+      <StopRoutes />
       <MapUpdater location={location} />
     </MapContainer>
   )

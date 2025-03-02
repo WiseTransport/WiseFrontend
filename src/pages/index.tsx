@@ -27,8 +27,8 @@ const searchLocation = async (query: string) => {
 
 export default function IndexPage() {
   const [location, setLocation] = useState({
-    latitude: 42.5,
-    longitude: 27.47,
+    latitude: 47.4572276012875,
+    longitude: 18.956050837881712,
   })
 
   const handleSearch = async (query: string) => {

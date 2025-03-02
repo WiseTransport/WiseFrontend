@@ -1,4 +1,4 @@
-import { TimeInput } from "@heroui/react"
+import { TimeInput } from "@heroui/date-input"
 
 export default function DestinationAlarm() {
   return (

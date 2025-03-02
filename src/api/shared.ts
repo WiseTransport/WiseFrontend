@@ -1,4 +1,4 @@
-import { GraphQLClient } from "graphql-request"
+import { QueryClient } from "@tanstack/react-query"
 
 export const endpoint = "http://localhost:8080/otp/routers/default/index/graphql"
-export const client = new GraphQLClient(endpoint)
+export const client = new QueryClient()

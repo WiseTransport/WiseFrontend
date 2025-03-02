@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button } from "@heroui/react"
+import { Button } from "@heroui/button"
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@heroui/dropdown"
 import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover"
 
