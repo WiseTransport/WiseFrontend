@@ -6,7 +6,7 @@ import "react-leaflet-markercluster/styles"
 import { useEffect } from "react"
 import { StopRoutes } from "@/components/StopRoutes.tsx"
 
-const WiseMap = ({
+const WiseMapContainer = ({
   location,
 }: {
   setLocation: ({}: any) => void
@@ -15,7 +15,7 @@ const WiseMap = ({
   return (
     <MapContainer
       center={[location.latitude, location.longitude]}
-      minZoom={12}
+      minZoom={8}
       zoomControl={false}
       style={{
         height: "100%",
@@ -51,4 +51,4 @@ const MapUpdater = ({
   return null
 }
 
-export { WiseMap, MapUpdater }
+export { WiseMapContainer, MapUpdater }
