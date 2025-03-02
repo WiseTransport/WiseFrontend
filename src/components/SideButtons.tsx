@@ -22,7 +22,12 @@ export default function SideButtons() {
       <RoundIconButton icon={<SettingsSVG />} onPress={() => setIsPopover2Open(true)} />
       <Dropdown>
         <DropdownTrigger>
-          <RoundIconButton icon={<ClockSVG />} />
+          <Button  // not using RoundIconButton because it breaks the trigger :(
+            isIconOnly
+            className=" bg-white rounded-full px-0 min-w-0 w-12 h-12 shadow-md p-1.5"
+          >
+            <ClockSVG />
+          </Button>
         </DropdownTrigger>
         <DropdownMenu>
           <DropdownItem key="1" onPress={() => setIsPopover1Open(true)}>
