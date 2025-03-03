@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { Marker, useMapEvent } from "react-leaflet"
 import MarkerClusterGroup from "react-leaflet-markercluster"
@@ -20,8 +20,11 @@ export const StopRoutes = () => {
       minLat: bounds.getSouth(),
       minLon: bounds.getWest(),
     })
-    client.invalidateQueries({ queryKey: ["stopsByBbox"] })
   })
+
+  useEffect(() => {
+    client.invalidateQueries({ queryKey: ["stopsByBbox"] }).then()
+  }, [bbox])
 
   if (isPending) {
     console.log("loading...")
