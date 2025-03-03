@@ -1,21 +1,21 @@
 import type { CodegenConfig } from "@graphql-codegen/cli"
 
-import { GRAPHQL_URL } from "./src/config/graphql.ts"
+import { GRAPHQL_URL } from "./src/features/WiseMap/api/shared"
 
 const config: CodegenConfig = {
   schema: GRAPHQL_URL,
-  documents: ["./src/api/queries/**/*.ts"],
+  documents: ["./src/**/*.ts"],
   ignoreNoDocuments: true,
   generates: {
-    './src/graphql/': {
-      preset: 'client',
+    "./src/features/WiseMap/api/graphql/": {
+      preset: "client",
     },
-    './schema.graphql': {
-      plugins: ['schema-ast'],
+    "./schema.graphql": {
+      plugins: ["schema-ast"],
       config: {
-        includeDirectives: true
-      }
-    }
+        includeDirectives: true,
+      },
+    },
   },
 }
 

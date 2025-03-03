@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-import { WiseMapContainer } from "@/components/WiseMapContainer.tsx"
-import BottomPanel from "@/components/BottomPanel"
-import SearchBar from "@/components/SearchBar"
-import SideButtons from "@/components/SideButtons.tsx"
-import CurrentGeoButton from "@/components/CurrentGeoButton.tsx"
+import { WiseMapContainer } from "@/features/WiseMap/components/organisms/WiseMapContainer.tsx"
+import BottomPanel from "@/features/WiseMap/components/organisms/BottomPanel.tsx"
+import SearchBar from "@/features/WiseMap/components/organisms/SearchBar.tsx"
+import SideButtons from "@/features/WiseMap/components/organisms/SideButtons.tsx"
+import CurrentGeoButton from "@/features/WiseMap/components/molecules/CurrentGeoButton.tsx"
 
 const searchLocation = async (query: string) => {
   if (!query) return
