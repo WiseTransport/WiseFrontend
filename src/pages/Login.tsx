@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import React from "react";
-import {Icon} from "@iconify/react";
+import React from "react"
+import { Icon } from "@iconify/react"
 import { Input } from "@heroui/input"
 import { Button } from "@heroui/button"
 import { Link } from "@heroui/link"
@@ -10,23 +10,29 @@ import { Form } from "@heroui/form"
 import { Checkbox } from "@heroui/checkbox"
 
 export const Login = () => {
-  const [isVisible, setIsVisible] = React.useState(false);
+  const [isVisible, setIsVisible] = React.useState(false)
 
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  const toggleVisibility = () => setIsVisible(!isVisible)
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("handleSubmit");
-  };
+    event.preventDefault()
+    console.log("handleSubmit")
+  }
 
   return (
     <div className="flex h-full w-full items-center justify-center mt-10">
       <div className="flex w-full max-w-sm flex-col gap-4 rounded-large">
         <div className="flex flex-col items-center pb-6">
           <p className="text-xl font-medium">Welcome Back</p>
-          <p className="text-small text-default-500">Log in to your account to continue</p>
+          <p className="text-small text-default-500">
+            Log in to your account to continue
+          </p>
         </div>
-        <Form className="flex flex-col gap-3" validationBehavior="native" onSubmit={handleSubmit}>
+        <Form
+          className="flex flex-col gap-3"
+          validationBehavior="native"
+          onSubmit={handleSubmit}
+        >
           <Input
             isRequired
             label="Email Address"
@@ -91,5 +97,5 @@ export const Login = () => {
         </p>
       </div>
     </div>
-  );
+  )
 }

@@ -1,4 +1,7 @@
+import { ReactNode } from "react"
+
 export type BottomPanelControl = {
-  setBottomPanelContent: ({}: any) => void
+  setBottomPanelContent: (state: ReactNode) => void
+  onClose: () => void
   onOpen: () => void
 }

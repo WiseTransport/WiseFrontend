@@ -6,13 +6,10 @@ import { useEffect } from "react"
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
 
 import { StopRoutes } from "../molecules/StopRoutes.tsx"
-import { BottomPanelControl } from "@/features/WiseMap/types.ts"
 
 const WiseMapContainer = ({
-  bottomPanelControl,
   location,
 }: {
-  bottomPanelControl: BottomPanelControl
   location: { latitude: number; longitude: number }
 }) => {
   return (
@@ -32,7 +29,7 @@ const WiseMapContainer = ({
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      <StopRoutes bottomPanelControl={bottomPanelControl} />
+      <StopRoutes />
       <Marker position={[location.latitude, location.longitude]} />
 
       <MapUpdater location={location} />

@@ -22,7 +22,7 @@ export const StopInfoBottomContent = ({ gtfsId }: { gtfsId: string }) => {
       data?.stop?.stoptimesForPatterns?.map((metaData) => {
         const route = metaData!.pattern!.route
         const stoptimes = metaData!.stoptimes!
-        const closestStoptime = stoptimes[stoptimes!.length-1]!
+        const closestStoptime = stoptimes[stoptimes!.length - 1]!
 
         return (
           <TripCard

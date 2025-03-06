@@ -6,7 +6,7 @@ function App() {
     <Routes>
       <Route element={<WiseMap />} path="/" />
       <Route element={<SignUp />} path="/sign-up" />
-      <Route element={<Login />} path = "/login"/>
+      <Route element={<Login />} path="/login" />
     </Routes>
   )
 }

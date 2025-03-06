@@ -7,19 +7,19 @@ import { getStopsByBbox } from "@/features/WiseMap/api/getStopsByBbox.ts"
 import { GetStopsByBboxQueryVariables } from "@/features/WiseMap/api/graphql/graphql.ts"
 import { client } from "@/features/WiseMap/api/shared.ts"
 import { StopInfoBottomContent } from "@/features/WiseMap/components/molecules/StopInfoBottomContent.tsx"
-import { BottomPanelControl } from "@/features/WiseMap/types.ts"
+import { useBottomPanelControl } from "@/features/WiseMap/contexts.ts"
 
 const ZOOM_THRESHOLD = 12
 
-export const StopRoutes = ({
-  bottomPanelControl,
-}: {
-  bottomPanelControl: BottomPanelControl
-}) => {
+export const StopRoutes = () => {
+  const bottomPanelControl = useBottomPanelControl()
   const [enabled, setEnabled] = useState<boolean>(true)
   const [bbox, setBbox] = useState<GetStopsByBboxQueryVariables>()
 
-  const { isPending, isError, data, error } = useQuery({...getStopsByBbox(bbox!), enabled})
+  const { isPending, isError, data, error } = useQuery({
+    ...getStopsByBbox(bbox!),
+    enabled,
+  })
 
   const map = useMapEvents({
     moveend: () => {
@@ -35,14 +35,14 @@ export const StopRoutes = ({
     zoomend: () => {
       console.log(map.getZoom())
       setEnabled(map.getZoom() >= ZOOM_THRESHOLD)
-    }
+    },
   })
 
   useEffect(() => {
     client.invalidateQueries({ queryKey: ["stopsByBbox"] }).then()
   }, [bbox])
 
-  if(!enabled) return
+  if (!enabled) return
 
   if (isPending) {
     console.log("loading...")
@@ -65,6 +65,8 @@ export const StopRoutes = ({
               position={[stop.lat!, stop.lon!]}
               eventHandlers={{
                 click: () => {
+                  if(!bottomPanelControl) return
+
                   bottomPanelControl.setBottomPanelContent(
                     <StopInfoBottomContent gtfsId={stop.gtfsId} />,
                   )
