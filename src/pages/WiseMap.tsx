@@ -1,49 +1,32 @@
-import { useState } from "react"
+import { ReactNode, useState } from "react"
+import { useDisclosure } from "@heroui/use-disclosure"
 
 import { WiseMapContainer } from "@/features/WiseMap/components/organisms/WiseMapContainer.tsx"
-import BottomPanel from "@/features/WiseMap/components/organisms/BottomPanel.tsx"
+import BottomDrawer from "@/features/WiseMap/components/organisms/BottomDrawer.tsx"
 import SearchBar from "@/features/WiseMap/components/organisms/SearchBar.tsx"
 import SideButtons from "@/features/WiseMap/components/organisms/SideButtons.tsx"
 import CurrentGeoButton from "@/features/WiseMap/components/molecules/CurrentGeoButton.tsx"
 
-const searchLocation = async (query: string) => {
-  if (!query) return
-
-  const response = await fetch(
-    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`,
-  )
-
-  const data = await response.json()
-
-  if (data.length > 0) {
-    return {
-      latitude: parseFloat(data[0].lat),
-      longitude: parseFloat(data[0].lon),
-    }
-  }
-
-  return null
-}
-
 export const WiseMap = () => {
+  const { onOpen, onOpenChange, isOpen } = useDisclosure()
+  const [bottomPanelContent, setBottomPanelContent] = useState<ReactNode>()
   const [location, setLocation] = useState({
     latitude: 47.4572276012875,
     longitude: 18.956050837881712,
   })
 
-  const handleSearch = async (query: string) => {
-    const result = await searchLocation(query)
-
-    if (result) setLocation(result)
-  }
-
   return (
     <div className="h-full w-full">
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar setLocation={setLocation} />
       <SideButtons />
-      <WiseMapContainer location={location} setLocation={setLocation} />
+      <WiseMapContainer
+        bottomPanelControl={{ setBottomPanelContent, onOpen }}
+        location={location}
+      />
       <CurrentGeoButton setLocation={setLocation} />
-      <BottomPanel />
+      <BottomDrawer onOpen={onOpen} onOpenChange={onOpenChange} isOpen={isOpen}>
+        {bottomPanelContent}
+      </BottomDrawer>
     </div>
   )
 }

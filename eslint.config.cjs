@@ -1,3 +1,55 @@
+// const react = require("eslint-plugin-react")
+// const globals = require("globals")
+// const eslintPluginPrettierRecommended = require("eslint-plugin-prettier/recommended")
+//
+// export default [
+//   {
+//     files: ["./src/**/*.{ts,tsx}"],
+//     ignores: [
+//       ".now/*",
+//       "**/*.css",
+//       "**/.changeset",
+//       "**/dist",
+//       "esm/*",
+//       "public/*",
+//       "tests/*",
+//       "scripts/*",
+//       "**/*.config.js",
+//       "**/.DS_Store",
+//       "**/node_modules",
+//       "**/coverage",
+//       "**/.next",
+//       "**/build",
+//       "!**/.commitlintrc.cjs",
+//       "!**/.lintstagedrc.cjs",
+//       "!**/jest.config.js",
+//       "!**/plopfile.js",
+//       "!**/react-shim.js",
+//       "!**/tsup.config.ts"
+//     ],
+//     plugins: {
+//       react
+//     },
+//     languageOptions: {
+//       parserOptions: {
+//         ecmaFeatures: {
+//           jsx: true
+//         }
+//       },
+//       globals: {
+//         ...globals.browser
+//       }
+//     },
+//     rules: {
+//       "react/jsx-uses-react": "error",
+//       "react/jsx-uses-vars": "error",
+//       semi: "error",
+//       "prefer-const": "error"
+//     },
+//     eslintPluginPrettierRecommended
+//   }
+// ]
+
 const { fixupConfigRules, fixupPluginRules } = require("@eslint/compat")
 const react = require("eslint-plugin-react")
 const unusedImports = require("eslint-plugin-unused-imports")

@@ -9,6 +9,10 @@
 
 ## How to Use
 
+### !!! Dependant on OTPProvider
+
+You will first need to launch the OTPProvider. Follow READ.ME in the corresponding folder.
+
 ### Install dependencies
 
 You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:

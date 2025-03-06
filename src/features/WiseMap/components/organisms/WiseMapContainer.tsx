@@ -3,20 +3,21 @@
 import "leaflet/dist/leaflet.css"
 import "react-leaflet-markercluster/styles"
 import { useEffect } from "react"
-import { MapContainer, TileLayer, useMap } from "react-leaflet"
+import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
 
 import { StopRoutes } from "../molecules/StopRoutes.tsx"
+import { BottomPanelControl } from "@/features/WiseMap/types.ts"
 
 const WiseMapContainer = ({
+  bottomPanelControl,
   location,
 }: {
-  setLocation: ({}: any) => void
+  bottomPanelControl: BottomPanelControl
   location: { latitude: number; longitude: number }
 }) => {
   return (
     <MapContainer
       center={[location.latitude, location.longitude]}
-      minZoom={8}
       zoomControl={false}
       style={{
         height: "100%",
@@ -25,14 +26,15 @@ const WiseMapContainer = ({
         left: 0,
         top: 0,
       }}
-      zoom={13}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      <StopRoutes />
+      <StopRoutes bottomPanelControl={bottomPanelControl} />
+      <Marker position={[location.latitude, location.longitude]} />
+
       <MapUpdater location={location} />
     </MapContainer>
   )

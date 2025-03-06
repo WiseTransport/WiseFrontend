@@ -1,11 +1,18 @@
 import { Navbar, NavbarContent } from "@heroui/navbar"
-import { KeyboardEvent, ChangeEvent, useState } from "react"
+import { ChangeEvent, KeyboardEvent, useState } from "react"
 
 import SearchSVG from "@/features/WiseMap/static/icons/SearchSVG.tsx"
 import { Input } from "@heroui/input"
+import { searchLocation } from "@/features/WiseMap/api/searchLocation.ts"
 
-const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
+const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
   const [query, setQuery] = useState("")
+
+  const handleSearch = async (query: string) => {
+    const result = await searchLocation(query)
+
+    if (result) setLocation(result)
+  }
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value)
@@ -13,7 +20,7 @@ const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => {
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && query.trim() !== "") {
-      onSearch(query)
+      handleSearch(query)
     }
   }
 
