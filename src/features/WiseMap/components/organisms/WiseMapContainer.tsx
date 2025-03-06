@@ -16,6 +16,7 @@ const WiseMapContainer = ({
     <MapContainer
       center={[location.latitude, location.longitude]}
       zoomControl={false}
+      zoom={15}
       style={{
         height: "100%",
         width: "100%",
@@ -45,7 +46,7 @@ const MapUpdater = ({
   const map = useMap()
 
   useEffect(() => {
-    map.setView([location.latitude, location.longitude], 13)
+    map.setView([location.latitude, location.longitude])
   }, [location, map])
 
   return null

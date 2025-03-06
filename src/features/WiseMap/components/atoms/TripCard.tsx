@@ -2,13 +2,20 @@ import { Card, CardBody, CardProps } from "@heroui/card"
 import MarqueeText from "react-marquee-text"
 import "react-marquee-text/dist/styles.css"
 import { useMemo } from "react"
+import dayjs from "dayjs"
+import { Icon } from "@iconify/react"
+import { TransitMode } from "@/features/WiseMap/api/graphql/graphql.ts"
 
 function secondsToTime(seconds: number) {
-  const date = new Date()
-  date.setUTCHours(0, 0, 0, 0)
-  date.setSeconds(seconds)
-  console.log(date.toISOString())
-  return date.toISOString().substring(11, 16)
+  const date = dayjs.tz(dayjs(), "Europe/Budapest").startOf("day").second(seconds)
+
+  const diff = Math.floor(date.diff() / 1000)
+
+  if (diff >= 0 && diff <= 20 * 60) {
+    return Math.floor(diff / 60) + " мин."
+  }
+
+  return date.format("HH:mm")
 }
 
 const getMarqueeText = (text: string) => (
@@ -22,12 +29,27 @@ const getMarqueeText = (text: string) => (
   </MarqueeText>
 )
 
+const getIconName = (mode: TransitMode) => {
+  switch (mode) {
+    case TransitMode.Subway:
+      return "la:subway"
+    case TransitMode.Rail:
+      return "maki:rail"
+    case TransitMode.Trolleybus:
+    case TransitMode.Tram:
+      return "solar:tram-linear"
+    default:
+      return "solar:bus-linear"
+  }
+}
+
 export interface TripCardProps extends CardProps {
   shortName?: string | null
   color?: string | null
   textColor?: string | null
   headsign?: string | null
   scheduledArrival?: number | null
+  mode?: TransitMode | null
 
   [key: string]: any
 }
@@ -38,16 +60,18 @@ export interface ProcessedTripProps {
   textColor: string
   headsign: string
   scheduledArrival: number
+  mode: TransitMode
 }
 
 export const TripCard = (props: TripCardProps) => {
-  const { shortName, color, textColor, headsign, scheduledArrival, ...cardProps } = props
+  const { shortName, color, textColor, headsign, scheduledArrival, mode, ...cardProps } = props
   const defaults = {
     shortName: "???",
     color: "FFFFFF",
     textColor: "000000",
     headsign: "Unnamed trip",
     scheduledArrival: -1,
+    mode: "BUS",
   } as TripCardProps
 
   const processedProps = useMemo(
@@ -74,17 +98,23 @@ export const TripCard = (props: TripCardProps) => {
   return (
     <Card {...cardProps} className={props.className + " h-20 w-full"}>
       <CardBody className="flex flex-row gap-4">
-        <div
-          className={" rounded-lg aspect-square flex justify-center"}
-          style={{ backgroundColor: "#" + processedProps.color }}
-        >
-          <p style={{ color: "#" + processedProps.textColor }} className="text-lg m-auto">
-            {shortName}
-          </p>
+        <div className="flex flex-row w-2/5 gap-2 items-center">
+          <Icon width="50%" icon={getIconName(processedProps.mode)} />
+          <div
+            className={"w-[65%] rounded-lg aspect-square flex justify-center"}
+            style={{ backgroundColor: "#" + processedProps.color }}
+          >
+            <p
+              style={{ color: "#" + processedProps.textColor }}
+              className="text-lg m-auto"
+            >
+              {shortName}
+            </p>
+          </div>
         </div>
         {marqueeHeadsign}
         <div className="aspect-square flex justify-center">
-          <span className="text-lg m-auto">{time}</span>
+          <span className="text-lg m-auto text-center min-w-[4rem]">{time}</span>
         </div>
       </CardBody>
     </Card>

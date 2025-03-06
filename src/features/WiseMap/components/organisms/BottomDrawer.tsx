@@ -1,6 +1,6 @@
 import { Drawer, DrawerContent } from "@heroui/drawer"
 import { Button } from "@heroui/button"
-import ArrowUpSVG from "@/features/WiseMap/static/icons/ArrowUpSVG.tsx"
+import ArrowUpSVG from "@/features/WiseMap/assets/icons/ArrowUpSVG.tsx"
 import { ModalContentProps } from "@heroui/modal/"
 
 export default function BottomDrawer({

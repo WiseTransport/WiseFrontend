@@ -8,6 +8,7 @@ export const getStoptimesQuery = graphql(`
         pattern {
           code
           route {
+            mode
             shortName
             color
             textColor

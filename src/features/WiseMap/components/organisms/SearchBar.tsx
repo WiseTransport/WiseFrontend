@@ -1,7 +1,7 @@
 import { Navbar, NavbarContent } from "@heroui/navbar"
 import { ChangeEvent, KeyboardEvent, useState } from "react"
 
-import SearchSVG from "@/features/WiseMap/static/icons/SearchSVG.tsx"
+import SearchSVG from "@/features/WiseMap/assets/icons/SearchSVG.tsx"
 import { Input } from "@heroui/input"
 import { searchLocation } from "@/features/WiseMap/api/searchLocation.ts"
 

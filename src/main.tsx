@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom"
 import App from "./App.tsx"
 import { Providers } from "./providers.tsx"
 import "@/styles/globals.css"
+import "@/dayjs.ts"
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

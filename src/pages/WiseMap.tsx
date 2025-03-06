@@ -12,8 +12,8 @@ export const WiseMap = () => {
   const { onOpen, onOpenChange, isOpen, onClose } = useDisclosure()
   const [bottomPanelContent, setBottomPanelContent] = useState<ReactNode>()
   const [location, setLocation] = useState({
-    latitude: 47.4572276012875,
-    longitude: 18.956050837881712,
+    latitude: 47.4930276012875,
+    longitude: 19.055050837881712,
   })
 
   return (

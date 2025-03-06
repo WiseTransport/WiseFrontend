@@ -8,6 +8,7 @@ import { GetStopsByBboxQueryVariables } from "@/features/WiseMap/api/graphql/gra
 import { client } from "@/features/WiseMap/api/shared.ts"
 import { StopInfoBottomContent } from "@/features/WiseMap/components/molecules/StopInfoBottomContent.tsx"
 import { useBottomPanelControl } from "@/features/WiseMap/contexts.ts"
+import { stopIcon } from "@/features/WiseMap/assets/leafletIcons.tsx"
 
 const ZOOM_THRESHOLD = 12
 
@@ -61,11 +62,12 @@ export const StopRoutes = () => {
         (stop) =>
           stop != null && (
             <Marker
+              icon={stopIcon}
               key={stop.gtfsId}
               position={[stop.lat!, stop.lon!]}
               eventHandlers={{
                 click: () => {
-                  if(!bottomPanelControl) return
+                  if (!bottomPanelControl) return
 
                   bottomPanelControl.setBottomPanelContent(
                     <StopInfoBottomContent gtfsId={stop.gtfsId} />,

@@ -1,6 +1,6 @@
 "use client"
 
-import MapPointSVG from "@/features/WiseMap/static/icons/MapPointSVG.tsx"
+import MapPointSVG from "@/features/WiseMap/assets/icons/MapPointSVG.tsx"
 import { RoundIconButton } from "@/components/atoms/RoundIconButton.tsx"
 
 export default function CurrentGeoButton({
