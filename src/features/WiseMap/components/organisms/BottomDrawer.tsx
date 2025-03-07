@@ -2,6 +2,7 @@ import { Drawer, DrawerContent } from "@heroui/drawer"
 import { Button } from "@heroui/button"
 import ArrowUpSVG from "@/features/WiseMap/assets/icons/ArrowUpSVG.tsx"
 import { ModalContentProps } from "@heroui/modal/"
+import { useCurrentTripData } from "@/features/WiseMap/contexts.tsx"
 
 export default function BottomDrawer({
   children,
@@ -14,7 +15,7 @@ export default function BottomDrawer({
   onOpen: () => void
   onOpenChange: () => void
 }) {
-  console.log(children)
+  const trip = useCurrentTripData()
   return (
     <>
       <div className="fixed w-full bottom-0 flex flex-wrap gap-3">
@@ -37,6 +38,7 @@ export default function BottomDrawer({
         }}
         backdrop="transparent"
         isDismissable={false}
+        onClose={() => trip.setTripData(undefined)}
       >
         <DrawerContent {...props}>{children}</DrawerContent>
       </Drawer>

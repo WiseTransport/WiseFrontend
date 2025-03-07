@@ -6,7 +6,33 @@ import {
   GetStoptimesQuery,
   GetStoptimesQueryVariables,
 } from "@/features/WiseMap/api/graphql/graphql.ts"
-import { getStoptimesQuery } from "@/features/WiseMap/api/queries/getStoptimes.ts"
+import { graphql } from "@/features/WiseMap/api/graphql"
+
+const getStoptimesQuery = graphql(`
+  query getStoptimes($gtfsId: String!, $startTime: Long!) {
+    stop(id: $gtfsId) {
+      name
+      stoptimesForPatterns(startTime: $startTime) {
+        pattern {
+          code
+          route {
+            mode
+            shortName
+            color
+            textColor
+          }
+        }
+        stoptimes {
+          scheduledArrival
+          trip {
+            gtfsId
+            tripHeadsign
+          }
+        }
+      }
+    }
+  }
+`)
 
 export const getStoptimes = (
   variables: GetStoptimesQueryVariables,
@@ -22,6 +48,6 @@ export const getStoptimes = (
           startTime: variables.startTime,
         },
       ),
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   }
 }

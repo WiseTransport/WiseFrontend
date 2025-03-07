@@ -7,10 +7,10 @@ import { getStopsByBbox } from "@/features/WiseMap/api/getStopsByBbox.ts"
 import { GetStopsByBboxQueryVariables } from "@/features/WiseMap/api/graphql/graphql.ts"
 import { client } from "@/features/WiseMap/api/shared.ts"
 import { StopInfoBottomContent } from "@/features/WiseMap/components/molecules/StopInfoBottomContent.tsx"
-import { useBottomPanelControl } from "@/features/WiseMap/contexts.ts"
+import { useBottomPanelControl } from "@/features/WiseMap/contexts.tsx"
 import { stopIcon } from "@/features/WiseMap/assets/leafletIcons.tsx"
 
-const ZOOM_THRESHOLD = 12
+const ZOOM_THRESHOLD = 14
 
 export const StopRoutes = () => {
   const bottomPanelControl = useBottomPanelControl()

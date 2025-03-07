@@ -2,11 +2,31 @@ import { request } from "graphql-request"
 import { UseQueryOptions } from "@tanstack/react-query"
 
 import { GRAPHQL_URL } from "@/features/WiseMap/api/shared.ts"
-import { getStopsByBboxQuery } from "@/features/WiseMap/api/queries/getStopsByBbox.ts"
 import {
   GetStopsByBboxQuery,
   GetStopsByBboxQueryVariables,
 } from "@/features/WiseMap/api/graphql/graphql.ts"
+import { graphql } from "@/features/WiseMap/api/graphql"
+
+const getStopsByBboxQuery = graphql(`
+  query getStopsByBbox(
+    $maxLat: Float!
+    $maxLon: Float!
+    $minLat: Float!
+    $minLon: Float!
+  ) {
+    stopsByBbox(maxLat: $maxLat, maxLon: $maxLon, minLat: $minLat, minLon: $minLon) {
+      gtfsId
+      name
+      lat
+      lon
+      routes {
+        gtfsId
+        shortName
+      }
+    }
+  }
+`)
 
 export const getStopsByBbox = (
   bbox: GetStopsByBboxQueryVariables,

@@ -33,6 +33,7 @@
     "@heroui/system": "2.4.10",
     "@heroui/theme": "2.4.9",
     "@heroui/toast": "^2.0.5",
+    "@heroui/tooltip": "^2.2.12",
     "@react-aria/visually-hidden": "3.8.12",
     "@react-types/shared": "3.26.0",
     "@tanstack/react-query": "^5.66.11",

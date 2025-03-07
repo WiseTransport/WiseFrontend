@@ -5,3 +5,8 @@ export type BottomPanelControl = {
   onClose: () => void
   onOpen: () => void
 }
+
+export type CurrentTripData = {
+  gtfsId: string
+  color: string
+}

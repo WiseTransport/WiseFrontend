@@ -6,6 +6,7 @@ import { useEffect } from "react"
 import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
 
 import { StopRoutes } from "../molecules/StopRoutes.tsx"
+import { TripDisplay } from "@/features/WiseMap/components/molecules/TripDisplay.tsx"
 
 const WiseMapContainer = ({
   location,
@@ -32,6 +33,7 @@ const WiseMapContainer = ({
 
       <StopRoutes />
       <Marker position={[location.latitude, location.longitude]} />
+      <TripDisplay />
 
       <MapUpdater location={location} />
     </MapContainer>

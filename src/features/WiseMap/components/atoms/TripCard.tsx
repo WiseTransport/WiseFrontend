@@ -5,6 +5,8 @@ import { useMemo } from "react"
 import dayjs from "dayjs"
 import { Icon } from "@iconify/react"
 import { TransitMode } from "@/features/WiseMap/api/graphql/graphql.ts"
+import { Tooltip } from "@heroui/tooltip"
+import { card } from "@heroui/theme"
 
 function secondsToTime(seconds: number) {
   const date = dayjs.tz(dayjs(), "Europe/Budapest").startOf("day").second(seconds)
@@ -64,7 +66,8 @@ export interface ProcessedTripProps {
 }
 
 export const TripCard = (props: TripCardProps) => {
-  const { shortName, color, textColor, headsign, scheduledArrival, mode, ...cardProps } = props
+  const { shortName, color, textColor, headsign, scheduledArrival, mode, ...cardProps } =
+    props
   const defaults = {
     shortName: "???",
     color: "FFFFFF",
@@ -96,10 +99,12 @@ export const TripCard = (props: TripCardProps) => {
   )
 
   return (
-    <Card {...cardProps} className={props.className + " h-20 w-full"}>
+    <Card {...cardProps} isPressable className={props.className + " h-20 w-full"}>
       <CardBody className="flex flex-row gap-4">
         <div className="flex flex-row w-2/5 gap-2 items-center">
-          <Icon width="50%" icon={getIconName(processedProps.mode)} />
+          <Tooltip content={processedProps.mode}>
+            <Icon width="50%" icon={getIconName(processedProps.mode)} />
+          </Tooltip>
           <div
             className={"w-[65%] rounded-lg aspect-square flex justify-center"}
             style={{ backgroundColor: "#" + processedProps.color }}
