@@ -1,9 +1,10 @@
 import type { CodegenConfig } from "@graphql-codegen/cli"
+import dotenv from 'dotenv';
 
-import { GRAPHQL_URL } from "./src/features/WiseMap/api/shared"
+dotenv.config();
 
 const config: CodegenConfig = {
-  schema: GRAPHQL_URL,
+  schema: process.env.VITE_GRAPHQL_URL,
   documents: ["./src/**/*.ts"],
   ignoreNoDocuments: true,
   generates: {

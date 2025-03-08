@@ -11,7 +11,7 @@
 
 ### !!! Dependant on OTPProvider
 
-You will first need to launch the OTPProvider. Follow READ.ME in the corresponding folder.
+You will first need to launch the OTPProvider. Follow README.md in the corresponding folder.
 
 ### Install dependencies
 
@@ -20,6 +20,11 @@ You can use one of them `npm`, `yarn`, `pnpm`, `bun`, Example using `npm`:
 ```bash
 npm install
 ```
+
+### Set OTP url
+
+If you're hosting OTP locally on port `8080`, then you can skip this step.\
+Set `VITE_GRAPHQL_URL` in the `.env` file.
 
 ### Run the development server
 
