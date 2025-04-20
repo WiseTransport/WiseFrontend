@@ -4,12 +4,12 @@ import { usePolylineContext } from "@/features/WiseMap/contexts.tsx"
 import { useEffect } from "react"
 import { decode } from "@/features/WiseMap/googlePolyline.ts"
 
-export const TripBottomContent = ({gtfsId, color}: {gtfsId: string, color: string}) => {
-  const { isPending, isError, data, error } = useQuery(getTripDetails({ gtfsId }))
+export const TripBottomContent = ({ gtfsId, color }: { gtfsId: string; color: string }) => {
+  const { isPending, isError, data, error } = useQuery(getTripDetails(["tripDetails"], { gtfsId }))
   const setPolyline = usePolylineContext()!.setPolyline
 
   useEffect(() => {
-    setPolyline({coords: decode(data?.trip?.pattern?.patternGeometry?.points), color})
+    setPolyline({ coords: decode(data?.trip?.pattern?.patternGeometry?.points), color })
   }, [data])
 
   if (isPending) {
@@ -24,3 +24,4 @@ export const TripBottomContent = ({gtfsId, color}: {gtfsId: string, color: strin
     return <></>
   }
 }
+

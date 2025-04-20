@@ -11,12 +11,12 @@ export const TripDisplay = () => {
   const trip = useCurrentTripData()
 
   const { isPending, isError, data, error } = useQuery({
-    ...getTripDetails({ gtfsId: trip.tripData?.gtfsId! }),
-    enabled: !!trip.tripData
+    ...getTripDetails(["tripDetails"], { gtfsId: trip.tripData?.gtfsId! }),
+    enabled: !!trip.tripData,
   })
   const vehicleResult = useQuery({
-    ...getVehiclePosition({ code: data?.trip?.pattern?.code! }),
-    enabled: !!data?.trip?.pattern
+    ...getVehiclePosition(["vehiclePosition"], { code: data?.trip?.pattern?.code! }),
+    enabled: !!data?.trip?.pattern,
   })
 
   const vehicles = useMemo(() => {
@@ -34,12 +34,14 @@ export const TripDisplay = () => {
   }, [vehicleResult])
 
   const pattern = useMemo(() => {
-    return data?.trip?.pattern ?
+    return data?.trip?.pattern ? (
       <Polyline
         positions={decode(data?.trip?.pattern?.patternGeometry?.points)}
         color={"#" + trip.tripData?.color}
       />
-      : <></>
+    ) : (
+      <></>
+    )
   }, [trip.tripData, data])
 
   if (!trip) return <></>

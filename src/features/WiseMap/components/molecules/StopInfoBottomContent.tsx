@@ -4,16 +4,13 @@ import { useQuery } from "@tanstack/react-query"
 import { client } from "@/features/WiseMap/api/shared.ts"
 import { getStoptimes } from "@/features/WiseMap/api/getStoptimes.ts"
 import { TripCard } from "@/features/WiseMap/components/atoms/TripCard.tsx"
-import {
-  useBottomPanelControl,
-  useCurrentTripData,
-} from "@/features/WiseMap/contexts.tsx"
+import { useBottomPanelControl, useCurrentTripData } from "@/features/WiseMap/contexts.tsx"
 
 export const StopInfoBottomContent = ({ gtfsId }: { gtfsId: string }) => {
   const trip = useCurrentTripData()
   const bottomPanelControl = useBottomPanelControl()
   const { isPending, isError, data, error } = useQuery(
-    getStoptimes({
+    getStoptimes(["stoptimes"], {
       gtfsId: gtfsId,
       startTime: Math.floor(Date.now() / 1000),
     }),

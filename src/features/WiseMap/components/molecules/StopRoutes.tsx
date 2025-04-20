@@ -18,7 +18,7 @@ export const StopRoutes = () => {
   const [bbox, setBbox] = useState<GetStopsByBboxQueryVariables>()
 
   const { isPending, isError, data, error } = useQuery({
-    ...getStopsByBbox(bbox!),
+    ...getStopsByBbox(["stopsByBbox"], bbox!),
     enabled,
   })
 

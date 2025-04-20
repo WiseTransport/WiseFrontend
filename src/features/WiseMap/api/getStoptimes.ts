@@ -1,7 +1,6 @@
-import { request } from "graphql-request"
 import { UseQueryOptions } from "@tanstack/react-query"
 
-import { GRAPHQL_URL } from "@/features/WiseMap/api/shared.ts"
+import { getGQLQuery } from "@/features/WiseMap/api/shared.ts"
 import {
   GetStoptimesQuery,
   GetStoptimesQueryVariables,
@@ -35,19 +34,8 @@ const getStoptimesQuery = graphql(`
 `)
 
 export const getStoptimes = (
+  queryKey: unknown[],
   variables: GetStoptimesQueryVariables,
 ): UseQueryOptions<GetStoptimesQuery> => {
-  return {
-    queryKey: ["stoptimes"],
-    queryFn: async () =>
-      request<GetStoptimesQuery, GetStoptimesQueryVariables>(
-        GRAPHQL_URL,
-        getStoptimesQuery,
-        {
-          gtfsId: variables.gtfsId,
-          startTime: variables.startTime,
-        },
-      ),
-    refetchOnWindowFocus: true,
-  }
+  return getGQLQuery(queryKey, getStoptimesQuery, variables)
 }
