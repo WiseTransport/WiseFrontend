@@ -5,7 +5,8 @@ import { Marker, Polyline } from "react-leaflet"
 import { decode } from "@/features/WiseMap/googlePolyline.ts"
 import { useCurrentTripData } from "@/features/WiseMap/contexts.tsx"
 import { greenIcon } from "@/features/WiseMap/assets/leafletIcons.tsx"
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
+import { client } from "../../api/shared"
 
 export const TripDisplay = () => {
   const trip = useCurrentTripData()
@@ -18,6 +19,11 @@ export const TripDisplay = () => {
     ...getVehiclePosition(["vehiclePosition"], { code: data?.trip?.pattern?.code! }),
     enabled: !!data?.trip?.pattern,
   })
+
+  useEffect(() => {
+    client.invalidateQueries({ queryKey: ["tripDetails"] }).then()
+    client.invalidateQueries({ queryKey: ["vehiclePosition"] }).then()
+  }, [trip])
 
   const vehicles = useMemo(() => {
     console.log(vehicleResult.data?.pattern?.vehiclePositions)
@@ -34,10 +40,11 @@ export const TripDisplay = () => {
   }, [vehicleResult])
 
   const pattern = useMemo(() => {
+    console.log(trip.tripData?.color)
     return data?.trip?.pattern ? (
       <Polyline
         positions={decode(data?.trip?.pattern?.patternGeometry?.points)}
-        color={"#" + trip.tripData?.color}
+        pathOptions={{ color: "#" + trip.tripData?.color, weight: 5 }}
       />
     ) : (
       <></>
@@ -55,7 +62,7 @@ export const TripDisplay = () => {
     console.log(error)
     return <></>
   }
-  //
+
   // console.log(trip.tripData)
   // console.log(data?.trip)
   // console.log(pattern)
