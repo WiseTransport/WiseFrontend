@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { getItinerary } from "../../api/getItinerary"
-import { decode } from "../../googlePolyline"
+import { Mode } from "../../api/graphql/graphql"
 
 const exampleJSON = `
 {
@@ -168,7 +168,13 @@ const exampleJSON = `
 `
 
 export const LegCard = () => {
-  const { data, isLoading } = useQuery(getItinerary({}))
+  const { data, isLoading } = useQuery(
+    getItinerary({
+      from: { lat: 47.4828, lon: 19.17541 },
+      to: { lat: 47.49487, lon: 19.04488 },
+      modes: [{ mode: Mode.Transit }, { mode: Mode.Walk }],
+    }),
+  )
 
   if (isLoading) return <h1>Loading...</h1>
   return (

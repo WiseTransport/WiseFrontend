@@ -8,11 +8,7 @@ import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
 import { StopRoutes } from "../molecules/StopRoutes.tsx"
 import { TripDisplay } from "@/features/WiseMap/components/molecules/TripDisplay.tsx"
 
-const WiseMapContainer = ({
-  location,
-}: {
-  location: { latitude: number; longitude: number }
-}) => {
+const WiseMapContainer = ({ location }: { location: { latitude: number; longitude: number } }) => {
   return (
     <MapContainer
       center={[location.latitude, location.longitude]}
@@ -27,8 +23,9 @@ const WiseMapContainer = ({
       }}
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        minZoom={0}
+        attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
       />
 
       <StopRoutes />
@@ -40,11 +37,7 @@ const WiseMapContainer = ({
   )
 }
 
-const MapUpdater = ({
-  location,
-}: {
-  location: { latitude: number; longitude: number }
-}) => {
+const MapUpdater = ({ location }: { location: { latitude: number; longitude: number } }) => {
   const map = useMap()
 
   useEffect(() => {

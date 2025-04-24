@@ -29,5 +29,6 @@ export const getTripDetails = (
   queryKey: unknown[],
   variables: GetTripDetailsQueryVariables,
 ): UseQueryOptions<GetTripDetailsQuery> => {
+  console.log(variables)
   return getGQLQuery(queryKey, getTripDetailsQuery, variables)
 }

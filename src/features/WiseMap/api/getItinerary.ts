@@ -1,7 +1,6 @@
-import { request, Variables } from "graphql-request"
 import { UseQueryOptions } from "@tanstack/react-query"
 
-import { getGQLQuery, GRAPHQL_URL } from "@/features/WiseMap/api/shared.ts"
+import { getGQLQuery } from "@/features/WiseMap/api/shared.ts"
 import {
   GetItineraryQuery,
   GetItineraryQueryVariables,
@@ -9,18 +8,8 @@ import {
 import { graphql } from "@/features/WiseMap/api/graphql"
 
 const getItineraryQuery = graphql(`
-  query getItinerary {
-    plan(
-      # these coordinate are in Portland, change this to YOUR origin
-      from: { lat: 47.48280, lon: 19.17541 }
-      # these coordinate are in Portland, change this to YOUR destination
-      to: { lat: 47.49487, lon: 19.04488 }
-      # use the correct date and time of your request
-      date: "2025-04-24"
-      time: "11:10"
-      # choose the transport modes you need
-      transportModes: [{ mode: WALK }, { mode: TRANSIT }]
-    ) {
+  query getItinerary($from: InputCoordinates, $to: InputCoordinates, $modes: [TransportMode]) {
+    plan(from: $from, to: $to, transportModes: $modes) {
       itineraries {
         start
         end

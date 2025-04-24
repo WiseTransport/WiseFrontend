@@ -4,11 +4,10 @@ import { useQuery } from "@tanstack/react-query"
 import { client } from "@/features/WiseMap/api/shared.ts"
 import { getStoptimes } from "@/features/WiseMap/api/getStoptimes.ts"
 import { TripCard } from "@/features/WiseMap/components/atoms/TripCard.tsx"
-import { useBottomPanelControl, useCurrentTripData } from "@/features/WiseMap/contexts.tsx"
+import { useCurrentTripData } from "@/features/WiseMap/contexts.tsx"
 
 export const StopInfoBottomContent = ({ gtfsId }: { gtfsId: string }) => {
   const trip = useCurrentTripData()
-  const bottomPanelControl = useBottomPanelControl()
   const { isPending, isError, data, error } = useQuery(
     getStoptimes({
       gtfsId: gtfsId,
@@ -40,11 +39,6 @@ export const StopInfoBottomContent = ({ gtfsId }: { gtfsId: string }) => {
                 gtfsId: closestStoptime.trip?.gtfsId!,
                 color: route.color!,
               })
-              // if (!bottomPanelControl) return
-              // bottomPanelControl.onOpen()
-              // bottomPanelControl.setBottomPanelContent(
-              //   <TripBottomContent color={route.color!} gtfsId={closestStoptime.trip?.gtfsId!} />,
-              // )
             }}
             key={metaData?.pattern?.code}
             headsign={closestStoptime.trip!.tripHeadsign}
@@ -69,7 +63,6 @@ export const StopInfoBottomContent = ({ gtfsId }: { gtfsId: string }) => {
 
   return (
     <div>
-      {console.log("renderrr:")}
       <DrawerHeader>{data.stop!.name}</DrawerHeader>
       <DrawerBody>{tripCards}</DrawerBody>
     </div>

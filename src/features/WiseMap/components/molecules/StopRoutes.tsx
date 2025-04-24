@@ -10,7 +10,7 @@ import { StopInfoBottomContent } from "@/features/WiseMap/components/molecules/S
 import { useBottomPanelControl } from "@/features/WiseMap/contexts.tsx"
 import { stopIcon } from "@/features/WiseMap/assets/leafletIcons.tsx"
 
-const ZOOM_THRESHOLD = 14
+const ZOOM_THRESHOLD = 15
 
 export const StopRoutes = () => {
   const bottomPanelControl = useBottomPanelControl()
@@ -57,7 +57,7 @@ export const StopRoutes = () => {
 
   // We can assume by this point that `isSuccess === true`
   return (
-    <MarkerClusterGroup>
+    <MarkerClusterGroup disableClusteringAtZoom={18}>
       {data.stopsByBbox!.map(
         (stop) =>
           stop != null && (
