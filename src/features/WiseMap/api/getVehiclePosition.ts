@@ -4,7 +4,7 @@ import {
   GetVehiclePositionQueryVariables,
 } from "@/features/WiseMap/api/graphql/graphql.ts"
 import { UseQueryOptions } from "@tanstack/react-query"
-import { getGQLQuery } from "./shared"
+import { getGQLQuery, refetchQueryOptions } from "./shared"
 
 const getVehiclePositionQuery = graphql(`
   query getVehiclePosition($code: String!) {
@@ -29,5 +29,8 @@ export const getVehiclePosition = (
   queryKey: unknown[],
   variables: GetVehiclePositionQueryVariables,
 ): UseQueryOptions<GetVehiclePositionQuery> => {
-  return getGQLQuery(queryKey, getVehiclePositionQuery, variables)
+  return {
+    ...getGQLQuery(queryKey, getVehiclePositionQuery, variables),
+    ...refetchQueryOptions(10),
+  }
 }

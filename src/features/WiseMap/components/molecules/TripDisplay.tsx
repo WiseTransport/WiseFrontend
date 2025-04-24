@@ -26,21 +26,16 @@ export const TripDisplay = () => {
   }, [trip])
 
   const vehicles = useMemo(() => {
-    console.log(vehicleResult.data?.pattern?.vehiclePositions)
-    return vehicleResult.data?.pattern?.vehiclePositions?.map((vehiclePosition) => {
-      if (vehiclePosition.trip.gtfsId === trip.tripData?.gtfsId)
-        return (
-          <Marker
-            key={vehiclePosition.trip.gtfsId}
-            icon={greenIcon}
-            position={{ lat: vehiclePosition.lat!, lng: vehiclePosition.lon! }}
-          />
-        )
-    })
-  }, [vehicleResult])
+    const positions = vehicleResult.data?.pattern?.vehiclePositions ?? []
+
+    return positions
+      .filter((v) => v.trip.gtfsId === trip.tripData?.gtfsId)
+      .map((v) => (
+        <Marker key={v.trip.gtfsId} icon={greenIcon} position={{ lat: v.lat!, lng: v.lon! }} />
+      ))
+  }, [vehicleResult, trip.tripData])
 
   const pattern = useMemo(() => {
-    console.log(trip.tripData?.color)
     return data?.trip?.pattern ? (
       <Polyline
         positions={decode(data?.trip?.pattern?.patternGeometry?.points)}
@@ -70,7 +65,6 @@ export const TripDisplay = () => {
 
   return (
     <>
-      {console.log("rerender")}
       {/*{console.log(trip.tripData)}*/}
       {/*{console.log("tripdata",data?.trip)}*/}
       {/*{console.log("vehi", vehicleResult.data)}*/}

@@ -8,6 +8,12 @@ export const GRAPHQL_URL =
 
 export const client = new QueryClient()
 
+export const refetchQueryOptions = (interval: number) => ({
+  refetchInterval: interval * 1000,
+  refetchIntervalInBackground: true,
+  refetchOnWindowFocus: false,
+})
+
 export const getGQLQuery = <Query, V extends Variables = Variables>(
   key: unknown[],
   query: DocumentNode,

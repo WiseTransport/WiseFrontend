@@ -10,7 +10,7 @@ export const StopInfoBottomContent = ({ gtfsId }: { gtfsId: string }) => {
   const trip = useCurrentTripData()
   const bottomPanelControl = useBottomPanelControl()
   const { isPending, isError, data, error } = useQuery(
-    getStoptimes(["stoptimes"], {
+    getStoptimes({
       gtfsId: gtfsId,
       startTime: Math.floor(Date.now() / 1000),
     }),
@@ -69,6 +69,7 @@ export const StopInfoBottomContent = ({ gtfsId }: { gtfsId: string }) => {
 
   return (
     <div>
+      {console.log("renderrr:")}
       <DrawerHeader>{data.stop!.name}</DrawerHeader>
       <DrawerBody>{tripCards}</DrawerBody>
     </div>
