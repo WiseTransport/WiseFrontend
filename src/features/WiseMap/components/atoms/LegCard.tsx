@@ -182,12 +182,19 @@ export const LegCard = () => {
       }}
     >
       {data?.plan?.itineraries[0]?.legs.map((val, i) => (
-        <div key={i} style={{ border: "2px #000 solid", display: "flex", flexDirection: "column" }}>
-          <h1>{val?.headsign}</h1>
-          <span>{val?.mode}</span>
-          <span>
+        <div
+          key={i}
+          style={{
+            boxShadow: " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <h1 style={{ fontWeight: "bold" }}>{val?.mode}</h1>
+          <h3 style={{ color: "grey" }}>{val?.headsign}</h3>
+          <h3 style={{ color: "grey" }}>
             {val?.start.scheduledTime} - {val?.end.scheduledTime}
-          </span>
+          </h3>
         </div>
       ))}
     </div>

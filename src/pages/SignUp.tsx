@@ -1,11 +1,11 @@
 "use client"
 
 import React from "react"
-import { Icon } from "@iconify/react"
 import { Input } from "@heroui/input"
 import { Button } from "@heroui/button"
 import { Link } from "@heroui/link"
 import { Divider } from "@heroui/divider"
+import { Icon } from "@iconify/react"
 
 export const SignUp = () => {
   const [isVisible, setIsVisible] = React.useState(false)
@@ -18,8 +18,8 @@ export const SignUp = () => {
     <div className="flex h-full w-full items-center justify-center mt-10">
       <div className="flex w-full max-w-sm flex-col gap-4 rounded-large">
         <div className="flex flex-col items-center pb-6">
-          <p className="text-xl font-medium">Welcome</p>
-          <p className="text-small text-default-500">Create an account to get started</p>
+          {/* <p className="text-xl font-medium">Welcome</p> */}
+          <p className="text-small text-default-500">За начало създайте акаунт</p>
         </div>
         <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
           <div className="flex flex-col">
@@ -32,7 +32,7 @@ export const SignUp = () => {
               }}
               label="Username"
               name="username"
-              placeholder="Enter your username"
+              placeholder="Въведете потребителското си име"
               type="text"
               variant="bordered"
             />
@@ -45,7 +45,7 @@ export const SignUp = () => {
               }}
               label="Email Address"
               name="email"
-              placeholder="Enter your email"
+              placeholder="Въведете имейла си"
               type="email"
               variant="bordered"
             />
@@ -73,7 +73,7 @@ export const SignUp = () => {
               }
               label="Password"
               name="password"
-              placeholder="Enter your password"
+              placeholder="Въведете паролата си"
               type={isVisible ? "text" : "password"}
               variant="bordered"
             />
@@ -99,7 +99,7 @@ export const SignUp = () => {
               }
               label="Confirm Password"
               name="confirmPassword"
-              placeholder="Confirm your password"
+              placeholder="Подтвърдете паролата си"
               type={isConfirmVisible ? "text" : "password"}
               variant="bordered"
             />
@@ -110,7 +110,7 @@ export const SignUp = () => {
         </form>
         <div className="flex items-center gap-4 py-2">
           <Divider className="flex-1" />
-          <p className="shrink-0 text-tiny text-default-500">OR</p>
+          <p className="shrink-0 text-tiny text-default-500">ИЛИ</p>
           <Divider className="flex-1" />
         </div>
         <div className="flex flex-col gap-2">
@@ -118,11 +118,11 @@ export const SignUp = () => {
             startContent={<Icon icon="flat-color-icons:google" width={24} />}
             variant="bordered"
           >
-            Sign Up with Google
+            Продължи с Google
           </Button>
         </div>
         <p className="text-center text-small">
-          Already have an account?&nbsp;
+          Вече имате акаунт?&nbsp;
           <Link href="#" size="sm">
             Log In
           </Link>
