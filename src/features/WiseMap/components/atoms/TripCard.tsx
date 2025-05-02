@@ -7,6 +7,7 @@ import { Icon } from "@iconify/react"
 import { TransitMode } from "@/features/WiseMap/api/graphql/graphql.ts"
 import { Tooltip } from "@heroui/tooltip"
 import { card } from "@heroui/theme"
+import { getIconName } from "../shared"
 
 function secondsToTime(seconds: number) {
   const date = dayjs.tz(dayjs(), "Europe/Budapest").startOf("day").second(seconds)
@@ -21,29 +22,10 @@ function secondsToTime(seconds: number) {
 }
 
 const getMarqueeText = (text: string) => (
-  <MarqueeText
-    className="flex items-center"
-    direction="right"
-    duration={10}
-    pauseOnHover={true}
-  >
+  <MarqueeText className="flex items-center" direction="right" duration={10} pauseOnHover={true}>
     &nbsp;&nbsp;&nbsp;&nbsp; {text}
   </MarqueeText>
 )
-
-const getIconName = (mode: TransitMode) => {
-  switch (mode) {
-    case TransitMode.Subway:
-      return "la:subway"
-    case TransitMode.Rail:
-      return "maki:rail"
-    case TransitMode.Trolleybus:
-    case TransitMode.Tram:
-      return "solar:tram-linear"
-    default:
-      return "solar:bus-linear"
-  }
-}
 
 export interface TripCardProps extends CardProps {
   shortName?: string | null
@@ -66,8 +48,7 @@ export interface ProcessedTripProps {
 }
 
 export const TripCard = (props: TripCardProps) => {
-  const { shortName, color, textColor, headsign, scheduledArrival, mode, ...cardProps } =
-    props
+  const { shortName, color, textColor, headsign, scheduledArrival, mode, ...cardProps } = props
   const defaults = {
     shortName: "???",
     color: "FFFFFF",
@@ -80,23 +61,16 @@ export const TripCard = (props: TripCardProps) => {
   const processedProps = useMemo(
     () =>
       Object.fromEntries(
-        Object.entries(props).map(([key, value]) =>
-          value ? [key, value] : [key, defaults[key]],
-        ),
+        Object.entries(props).map(([key, value]) => (value ? [key, value] : [key, defaults[key]])),
       ) as ProcessedTripProps,
     [props],
   )
   const time = useMemo(
     () =>
-      processedProps.scheduledArrival >= 0
-        ? secondsToTime(processedProps.scheduledArrival)
-        : "???",
+      processedProps.scheduledArrival >= 0 ? secondsToTime(processedProps.scheduledArrival) : "???",
     [processedProps],
   )
-  const marqueeHeadsign = useMemo(
-    () => getMarqueeText(processedProps.headsign),
-    [processedProps],
-  )
+  const marqueeHeadsign = useMemo(() => getMarqueeText(processedProps.headsign), [processedProps])
 
   return (
     <Card {...cardProps} isPressable className={props.className + " h-20 w-full"}>
@@ -109,10 +83,7 @@ export const TripCard = (props: TripCardProps) => {
             className={"w-[65%] rounded-lg aspect-square flex justify-center"}
             style={{ backgroundColor: "#" + processedProps.color }}
           >
-            <p
-              style={{ color: "#" + processedProps.textColor }}
-              className="text-lg m-auto"
-            >
+            <p style={{ color: "#" + processedProps.textColor }} className="text-lg m-auto">
               {shortName}
             </p>
           </div>

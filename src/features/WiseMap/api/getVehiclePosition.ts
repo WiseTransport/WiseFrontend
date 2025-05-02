@@ -15,6 +15,12 @@ const getVehiclePositionQuery = graphql(`
         }
         trip {
           gtfsId
+          route {
+            mode
+            color
+            textColor
+            shortName
+          }
         }
         heading
         lat

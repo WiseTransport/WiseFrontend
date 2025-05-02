@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
 import { getVehiclePosition } from "@/features/WiseMap/api/getVehiclePosition.ts"
 import { getTripDetails } from "@/features/WiseMap/api/getTripDetails.ts"
-import { Marker, Polyline } from "react-leaflet"
+import { Polyline } from "react-leaflet"
 import { decode } from "@/features/WiseMap/googlePolyline.ts"
 import { useCurrentTripData } from "@/features/WiseMap/contexts.tsx"
-import { greenIcon } from "@/features/WiseMap/assets/leafletIcons.tsx"
 import { useEffect, useMemo } from "react"
+import { Marker } from "@adamscybot/react-leaflet-component-marker"
+import { Icon } from "@iconify/react/dist/iconify.js"
+import { getIconName } from "../shared"
+import { VehicleMarker } from "../atoms/VehicleMarker"
 
 export const TripDisplay = () => {
   const trip = useCurrentTripData()
@@ -41,9 +44,16 @@ export const TripDisplay = () => {
     if (!trip.tripData?.gtfsId) return []
 
     const positions = vehicleResult.data?.pattern?.vehiclePositions ?? []
-
     return positions.map((v) => (
-      <Marker key={v.trip.gtfsId} icon={greenIcon} position={{ lat: v.lat!, lng: v.lon! }} />
+      <VehicleMarker
+        gtfsId={v.trip.gtfsId}
+        shortName={v.trip.route.shortName!}
+        position={{ lat: v.lat!, lng: v.lon! }}
+        mode={v.trip.route.mode!}
+        color={`#${v.trip.route.color!}`}
+        textColor={`#${v.trip.route.textColor!}`}
+        heading={v.heading!}
+      />
     ))
   }, [vehicleResult, trip.tripData])
 
