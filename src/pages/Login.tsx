@@ -1,13 +1,13 @@
 "use client"
 
 import React from "react"
-import { Icon } from "@iconify/react"
 import { Input } from "@heroui/input"
 import { Button } from "@heroui/button"
 import { Link } from "@heroui/link"
 import { Divider } from "@heroui/divider"
 import { Form } from "@heroui/form"
 import { Checkbox } from "@heroui/checkbox"
+import { Icon } from "@iconify/react"
 
 export const Login = () => {
   const [isVisible, setIsVisible] = React.useState(false)
@@ -23,10 +23,10 @@ export const Login = () => {
     <div className="flex h-full w-full items-center justify-center mt-10">
       <div className="flex w-full max-w-sm flex-col gap-4 rounded-large">
         <div className="flex flex-col items-center pb-6">
-          <p className="text-xl font-medium">Welcome Back</p>
-          <p className="text-small text-default-500">
+          <p className="text-xl font-medium">Влезте в акаунта сиk</p>
+          {/* <p className="text-small text-default-500">
             Log in to your account to continue
-          </p>
+          </p> */}
         </div>
         <Form
           className="flex flex-col gap-3"
@@ -37,7 +37,7 @@ export const Login = () => {
             isRequired
             label="Email Address"
             name="email"
-            placeholder="Enter your email"
+            placeholder="Въведете имейла си"
             type="email"
             variant="bordered"
           />
@@ -60,20 +60,20 @@ export const Login = () => {
             }
             label="Password"
             name="password"
-            placeholder="Enter your password"
+            placeholder="Въведете паролата си"
             type={isVisible ? "text" : "password"}
             variant="bordered"
           />
           <div className="flex w-full items-center justify-between px-1 py-2">
             <Checkbox name="remember" size="sm">
-              Remember me
+              Запомни ме
             </Checkbox>
             <Link className="text-default-500" href="#" size="sm">
-              Forgot password?
+              Забравихте паролата?
             </Link>
           </div>
           <Button className="w-full bg-[#EC442C] text-white" type="submit">
-            Sign In
+            Регистрирайте се
           </Button>
         </Form>
         <div className="flex items-center gap-4 py-2">
@@ -86,13 +86,13 @@ export const Login = () => {
             startContent={<Icon icon="flat-color-icons:google" width={24} />}
             variant="bordered"
           >
-            Continue with Google
+            Продължи с Google
           </Button>
         </div>
         <p className="text-center text-small">
-          Need to create an account?&nbsp;
+          Трябва да създадете акаунт?&nbsp;
           <Link href="#" size="sm">
-            Sign Up
+            Продължи
           </Link>
         </p>
       </div>
