@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { getItinerary } from "../../api/getItinerary"
 import { decode } from "../../googlePolyline"
+import * as dayjs from "dayjs"
 
 const exampleJSON = `
 {
@@ -188,12 +189,16 @@ export const LegCard = () => {
             boxShadow: " 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
             display: "flex",
             flexDirection: "column",
+            padding: "50px",
+            borderRadius: "25px",
+            width: "90%",
           }}
         >
-          <h1 style={{ fontWeight: "bold" }}>{val?.mode}</h1>
+          <h1 style={{ fontWeight: "bold", color: "#EC442C" }}>{val?.mode}</h1>
           <h3 style={{ color: "grey" }}>{val?.headsign}</h3>
           <h3 style={{ color: "grey" }}>
-            {val?.start.scheduledTime} - {val?.end.scheduledTime}
+            {dayjs(val?.start.scheduledTime).format("HH:mm")} -{" "}
+            {dayjs(val?.end.scheduledTime).format("HH:mm")}
           </h3>
         </div>
       ))}
