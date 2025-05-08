@@ -1,0 +1,40 @@
+# ─── Dependencies & build artifacts
+node_modules/
+dist/
+build/
+
+# ─── Vite/TypeScript caches & metadata
+.vite/
+*.tsbuildinfo
+
+# ─── Bun cache (if you ever see a .bun folder)
+.bun/
+
+# ─── Env & lockfiles you don’t need
+.env*
+!/.env.example
+
+# ─── GraphQL or codegen temp files
+.gql/
+graphql.schema.json
+
+# ─── Logs, coverage & CI configs
+*.log
+coverage/
+.github/
+.circleci/
+.vercel/
+
+# ─── Editor & OS junk
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sw?
+*.DS_Store
+Thumbs.db
+
+# ─── Keep Docker configs in!
+!Dockerfile
+!docker-compose*.yml
