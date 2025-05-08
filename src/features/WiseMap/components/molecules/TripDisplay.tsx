@@ -44,8 +44,9 @@ export const TripDisplay = () => {
     if (!trip.tripData?.gtfsId) return []
 
     const positions = vehicleResult.data?.pattern?.vehiclePositions ?? []
-    return positions.map((v) => (
+    return positions.map((v, i) => (
       <VehicleMarker
+        key={v.trip.gtfsId + i}
         gtfsId={v.trip.gtfsId}
         shortName={v.trip.route.shortName!}
         position={{ lat: v.lat!, lng: v.lon! }}

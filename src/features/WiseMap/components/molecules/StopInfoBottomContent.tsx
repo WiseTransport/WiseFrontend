@@ -30,7 +30,6 @@ export const StopInfoBottomContent = ({ gtfsId }: { gtfsId: string }) => {
           <TripCard
             {...route}
             onPress={() => {
-              console.log("clicked", trip)
               if (!trip) {
                 console.log("exit")
                 return

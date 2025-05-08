@@ -42,5 +42,5 @@ export const VehicleMarker = ({
     </div>
   )
 
-  return <Marker key={gtfsId} icon={icon} position={position} />
+  return <Marker icon={icon} position={position} />
 }

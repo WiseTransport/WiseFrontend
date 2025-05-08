@@ -1,13 +1,13 @@
-import { TransitMode } from "../api/graphql/graphql"
+import { Mode, TransitMode } from "../api/graphql/graphql"
 
-export const getIconName = (mode: TransitMode) => {
+export const getIconName = (mode: TransitMode | Mode) => {
   switch (mode) {
-    case TransitMode.Subway:
+    case Mode.Subway:
       return "la:subway"
-    case TransitMode.Rail:
+    case Mode.Rail:
       return "maki:rail"
-    case TransitMode.Trolleybus:
-    case TransitMode.Tram:
+    case Mode.Trolleybus:
+    case Mode.Tram:
       return "solar:tram-linear"
     default:
       return "solar:bus-linear"

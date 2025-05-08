@@ -1,18 +1,22 @@
 import { Navbar, NavbarContent } from "@heroui/navbar"
-import { ChangeEvent, KeyboardEvent, useState } from "react"
+import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react"
+import * as motion from "motion/react-client"
 
 import SearchSVG from "@/features/WiseMap/assets/icons/SearchSVG.tsx"
 import { Input } from "@heroui/input"
-import { searchLocation } from "@/features/WiseMap/api/searchLocation.ts"
+import { useQuery } from "@tanstack/react-query"
+import { geocodeLocation } from "../../api/geocodeLoc"
+import { GeocodeResponse } from "../../api/schemas"
+import { Button } from "@heroui/button"
 
 const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
+  const [topPx, setTopPx] = useState("0")
   const [query, setQuery] = useState("")
-
-  const handleSearch = async (query: string) => {
-    const result = await searchLocation(query)
-
-    if (result) setLocation(result)
-  }
+  const { data, refetch } = useQuery({
+    queryKey: ["geocode"],
+    queryFn: () => geocodeLocation(query),
+    enabled: false,
+  })
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value)
@@ -20,15 +24,35 @@ const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && query.trim() !== "") {
-      handleSearch(query)
+      refetch()
     }
   }
 
+  useEffect(() => {
+    console.log(data)
+    if (data) {
+      const location = data[0].geometry.location
+      setLocation({
+        latitude: location.lat,
+        longitude: location.lng,
+      })
+    }
+  }, [data])
+
   return (
-    <Navbar className="top-7 relative bg-transparent max-w-none" isBlurred={false}>
+    <Navbar
+      className=" top-7 relative bg-transparent max-w-none"
+      classNames={{
+        wrapper: "flex justify-center items-center",
+      }}
+      isBlurred={false}
+    >
+      <Button className="top-24" onPress={() => setTopPx("100px")}>
+        Click me
+      </Button>
       <NavbarContent
         as="section"
-        className="flex mx-auto w-3/6 max-w-xl max-sm:w-full h-14 bg-white rounded-full shadow-md"
+        className="absolute flex w-3/6 max-w-xl max-sm:w-full h-14 bg-white rounded-full shadow-md"
         justify="center"
       >
         <Input
@@ -36,8 +60,7 @@ const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
             base: "h-10 w-10/12 border-0",
             mainWrapper: "h-full",
             input: "text-small",
-            inputWrapper:
-              "h-full font-normal text-default-500 bg-white shadow-none text-left",
+            inputWrapper: "h-full font-normal text-default-500 bg-white shadow-none text-left",
           }}
           placeholder="Търси дестинация"
           startContent={
@@ -51,6 +74,32 @@ const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
           onKeyUp={handleKeyPress}
         />
       </NavbarContent>
+      <motion.div animate={{ top: topPx }} className="absolute w-3/6">
+        <NavbarContent
+          as="section"
+          className="flex mx-auto max-w-xl max-sm:w-full h-14 bg-white rounded-full shadow-md"
+          justify="center"
+        >
+          <Input
+            classNames={{
+              base: "h-10 w-10/12 border-0",
+              mainWrapper: "h-full",
+              input: "text-small",
+              inputWrapper: "h-full font-normal text-default-500 bg-white shadow-none text-left",
+            }}
+            placeholder="Търси дестинация"
+            startContent={
+              <div className="w-8 pr-2">
+                <SearchSVG />
+              </div>
+            }
+            type="search"
+            value={query}
+            onChange={handleChange}
+            onKeyUp={handleKeyPress}
+          />
+        </NavbarContent>
+      </motion.div>
     </Navbar>
   )
 }

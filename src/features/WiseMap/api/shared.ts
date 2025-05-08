@@ -6,6 +6,10 @@ import { DocumentNode } from "graphql"
 export const GRAPHQL_URL =
   import.meta.env.VITE_GRAPHQL_URL || "http://localhost:8080/otp/routers/default/index/graphql"
 
+export const GEOCODE_URL = import.meta.env.VITE_GEOCODE_URL || "http://localhost:8001"
+
+export const USERS_URL = import.meta.env.VITE_USERS_URL || "http://localhost:8002"
+
 export const client = new QueryClient()
 
 export const refetchQueryOptions = (interval: number) => ({

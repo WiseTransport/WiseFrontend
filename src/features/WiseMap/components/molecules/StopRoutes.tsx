@@ -25,7 +25,7 @@ export const StopRoutes = () => {
   const map = useMapEvents({
     moveend: () => {
       const bounds = map.getBounds()
-      console.log(bounds.toBBoxString())
+
       setBbox({
         maxLat: bounds.getNorth(),
         maxLon: bounds.getEast(),
@@ -34,7 +34,6 @@ export const StopRoutes = () => {
       })
     },
     zoomend: () => {
-      console.log(map.getZoom())
       setEnabled(map.getZoom() >= ZOOM_THRESHOLD)
     },
   })
