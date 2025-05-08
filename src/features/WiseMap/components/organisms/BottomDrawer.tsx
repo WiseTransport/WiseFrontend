@@ -20,7 +20,7 @@ export default function BottomDrawer({
     <>
       <div className="fixed w-full bottom-0 flex flex-wrap gap-3">
         <Button
-          className="mx-auto w-3/6 max-w-xl bg-[#EC442C] rounded-b-none rounded-t-lg"
+          className="mx-auto w-3/6 sm:w-5/6 max-w-xl bg-[#EC442C] rounded-b-none rounded-t-lg"
           onPress={onOpen}
         >
           <div className="w-10 mx-auto">
@@ -32,7 +32,7 @@ export default function BottomDrawer({
         isOpen={isOpen}
         placement="bottom"
         onOpenChange={onOpenChange}
-        className="pointer-events-auto w-3/6 max-h-80 max-w-xl sm:mx-auto mx-auto"
+        className="pointer-events-auto w-3/6 min-w-[90%] max-h-80 max-w-xl sm:mx-auto mx-auto"
         classNames={{
           wrapper: "pointer-events-none",
         }}

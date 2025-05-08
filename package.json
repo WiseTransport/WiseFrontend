@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"bunx --bun vite\" \"npm run gql -- --watch\"",
+    "dev": "concurrently \"vite\" \"npm run gql -- --watch\"",
     "proddev": "vite --host 0.0.0.0",
     "gql": "graphql-codegen --config gql_codegen.ts",
     "build": "tsc && vite build",

@@ -47,12 +47,9 @@ const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
       }}
       isBlurred={false}
     >
-      <Button className="top-24" onPress={() => setTopPx("100px")}>
-        Click me
-      </Button>
       <NavbarContent
         as="section"
-        className="absolute flex w-3/6 max-w-xl max-sm:w-full h-14 bg-white rounded-full shadow-md"
+        className="absolute flex w-3/6 max-w-xl min-w-[90%]  h-14 bg-white rounded-full shadow-md"
         justify="center"
       >
         <Input
@@ -74,32 +71,6 @@ const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
           onKeyUp={handleKeyPress}
         />
       </NavbarContent>
-      <motion.div animate={{ top: topPx }} className="absolute w-3/6">
-        <NavbarContent
-          as="section"
-          className="flex mx-auto max-w-xl max-sm:w-full h-14 bg-white rounded-full shadow-md"
-          justify="center"
-        >
-          <Input
-            classNames={{
-              base: "h-10 w-10/12 border-0",
-              mainWrapper: "h-full",
-              input: "text-small",
-              inputWrapper: "h-full font-normal text-default-500 bg-white shadow-none text-left",
-            }}
-            placeholder="Търси дестинация"
-            startContent={
-              <div className="w-8 pr-2">
-                <SearchSVG />
-              </div>
-            }
-            type="search"
-            value={query}
-            onChange={handleChange}
-            onKeyUp={handleKeyPress}
-          />
-        </NavbarContent>
-      </motion.div>
     </Navbar>
   )
 }
