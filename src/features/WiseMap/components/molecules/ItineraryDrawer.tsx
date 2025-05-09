@@ -5,13 +5,13 @@ import { LegCard } from "../atoms/LegCard"
 import { Leg, Mode } from "../../api/graphql/graphql"
 import { getItinerary } from "../../api/getItinerary"
 import { useQuery } from "@tanstack/react-query"
-import { useToFrom } from "../../contexts"
+import { useItinerary } from "../../contexts"
 import { useEffect, useMemo } from "react"
 import dayjs, { duration } from "dayjs"
 import { formatDuration } from "../shared"
 
 export const ItineraryDrawer = () => {
-  const { to, from, setTo, setFrom } = useToFrom()
+  const { to, from, setLegs } = useItinerary()
   const { data, isLoading, refetch } = useQuery({
     ...getItinerary({
       from: from,
@@ -19,6 +19,9 @@ export const ItineraryDrawer = () => {
       modes: [{ mode: Mode.Transit }, { mode: Mode.Walk }],
     }),
     enabled: false,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchIntervalInBackground: false,
   })
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -45,6 +48,10 @@ export const ItineraryDrawer = () => {
       refetch()
     }
   }, [to, from])
+
+  useEffect(() => {
+    if (fastestItinerary) setLegs(fastestItinerary.legs as (Leg | null)[])
+  }, [fastestItinerary])
   console.log(fastestItinerary?.end)
   // if (isLoading) return <h1>Loading...</h1>
   return (

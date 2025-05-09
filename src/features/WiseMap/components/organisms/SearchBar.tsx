@@ -7,13 +7,13 @@ import { Button } from "@heroui/button"
 import { CentredInput } from "../atoms/CentredInput"
 import MarkerPin from "../../assets/icons/MarkerPin"
 import { Navbar } from "@heroui/navbar"
-import { useToFrom } from "../../contexts"
+import { useItinerary } from "../../contexts"
 
 const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
   const [topPx, setTopPx] = useState("0")
   const [fromQuery, setFromQuery] = useState("")
   const [toQuery, setToQuery] = useState("")
-  const { setTo, setFrom } = useToFrom()
+  const { setTo, setFrom } = useItinerary()
 
   const { data: toData, refetch: toRefetch } = useQuery({
     queryKey: ["toGeocode"],

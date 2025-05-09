@@ -7,6 +7,8 @@ import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet"
 
 import { StopRoutes } from "../molecules/StopRoutes.tsx"
 import { TripDisplay } from "@/features/WiseMap/components/molecules/TripDisplay.tsx"
+import { ItineraryGeometry } from "../atoms/ItineraryGeometry.tsx"
+import { ItineraryMarkers } from "../atoms/ItineraryMarkers.tsx"
 
 const WiseMapContainer = ({ location }: { location: { latitude: number; longitude: number } }) => {
   return (
@@ -29,8 +31,11 @@ const WiseMapContainer = ({ location }: { location: { latitude: number; longitud
       />
 
       <StopRoutes />
-      <Marker position={[location.latitude, location.longitude]} />
+      {/* <Marker position={[location.latitude, location.longitude]} /> */}
+
       <TripDisplay />
+      <ItineraryGeometry />
+      <ItineraryMarkers />
 
       <MapUpdater location={location} />
     </MapContainer>
