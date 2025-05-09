@@ -1,43 +1,58 @@
-import { Navbar, NavbarContent } from "@heroui/navbar"
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react"
+import { KeyboardEvent, useEffect, useState } from "react"
 import * as motion from "motion/react-client"
 
-import SearchSVG from "@/features/WiseMap/assets/icons/SearchSVG.tsx"
-import { Input } from "@heroui/input"
 import { useQuery } from "@tanstack/react-query"
 import { geocodeLocation } from "../../api/geocodeLoc"
-import { GeocodeResponse } from "../../api/schemas"
 import { Button } from "@heroui/button"
+import { CentredInput } from "../atoms/CentredInput"
+import MarkerPin from "../../assets/icons/MarkerPin"
+import { Navbar } from "@heroui/navbar"
+import { useToFrom } from "../../contexts"
 
 const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
   const [topPx, setTopPx] = useState("0")
-  const [query, setQuery] = useState("")
-  const { data, refetch } = useQuery({
-    queryKey: ["geocode"],
-    queryFn: () => geocodeLocation(query),
+  const [fromQuery, setFromQuery] = useState("")
+  const [toQuery, setToQuery] = useState("")
+  const { setTo, setFrom } = useToFrom()
+
+  const { data: toData, refetch: toRefetch } = useQuery({
+    queryKey: ["toGeocode"],
+    queryFn: () => geocodeLocation(toQuery),
+    enabled: false,
+  })
+  const { data: fromData, refetch: fromRefetch } = useQuery({
+    queryKey: ["fromGgeocode"],
+    queryFn: () => geocodeLocation(fromQuery),
     enabled: false,
   })
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value)
+  const handleFromSearch = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && fromQuery.trim() !== "") {
+      fromRefetch()
+    }
   }
 
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && query.trim() !== "") {
-      refetch()
+  const handleToSearch = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && toQuery.trim() !== "") {
+      toRefetch()
     }
   }
 
   useEffect(() => {
-    console.log(data)
-    if (data) {
-      const location = data[0].geometry.location
+    if (toData && !fromData) {
+      const location = toData[0].geometry.location
       setLocation({
         latitude: location.lat,
         longitude: location.lng,
       })
+      setTopPx("4.5rem")
+    } else if (toData && fromData) {
+      const toLoc = toData[0].geometry.location
+      const fromLoc = fromData[0].geometry.location
+      setTo({ lat: toLoc.lat, lon: toLoc.lng })
+      setFrom({ lat: fromLoc.lat, lon: fromLoc.lng })
     }
-  }, [data])
+  }, [toData, fromData])
 
   return (
     <Navbar
@@ -47,30 +62,33 @@ const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
       }}
       isBlurred={false}
     >
-      <NavbarContent
-        as="section"
-        className="absolute flex w-3/6 max-w-xl min-w-[90%]  h-14 bg-white rounded-full shadow-md"
-        justify="center"
-      >
-        <Input
-          classNames={{
-            base: "h-10 w-10/12 border-0",
-            mainWrapper: "h-full",
-            input: "text-small",
-            inputWrapper: "h-full font-normal text-default-500 bg-white shadow-none text-left",
-          }}
+      <div className="absolute w-full">
+        <CentredInput
+          placeholder="Откъде ще пътувате?"
+          startContent={
+            <div className="w-8 pr-2">
+              <MarkerPin />
+            </div>
+          }
+          onKeyUp={handleFromSearch}
+          query={fromQuery}
+          setQuery={setFromQuery}
+        />
+      </div>
+
+      <motion.div animate={{ top: topPx }} className="absolute w-full">
+        <CentredInput
           placeholder="Търси дестинация"
           startContent={
             <div className="w-8 pr-2">
-              <SearchSVG />
+              <MarkerPin />
             </div>
           }
-          type="search"
-          value={query}
-          onChange={handleChange}
-          onKeyUp={handleKeyPress}
-        />
-      </NavbarContent>
+          onKeyUp={handleToSearch}
+          query={toQuery}
+          setQuery={setToQuery}
+        />{" "}
+      </motion.div>
     </Navbar>
   )
 }

@@ -11,6 +11,7 @@ const getItineraryQuery = graphql(`
   query getItinerary($from: InputCoordinates, $to: InputCoordinates, $modes: [TransportMode]) {
     plan(from: $from, to: $to, transportModes: $modes) {
       itineraries {
+        duration
         start
         end
         legs {
@@ -78,6 +79,16 @@ const getItineraryQuery = graphql(`
           legGeometry {
             points
           }
+          trip {
+            tripHeadsign
+            route {
+              color
+              textColor
+              shortName
+            }
+          }
+          duration
+          distance
         }
       }
     }

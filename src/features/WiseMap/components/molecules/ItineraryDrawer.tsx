@@ -5,20 +5,48 @@ import { LegCard } from "../atoms/LegCard"
 import { Leg, Mode } from "../../api/graphql/graphql"
 import { getItinerary } from "../../api/getItinerary"
 import { useQuery } from "@tanstack/react-query"
+import { useToFrom } from "../../contexts"
+import { useEffect, useMemo } from "react"
+import dayjs, { duration } from "dayjs"
+import { formatDuration } from "../shared"
 
 export const ItineraryDrawer = () => {
-  const { data, isLoading } = useQuery(
-    getItinerary({
-      from: { lat: 47.4828, lon: 19.17541 },
-      to: { lat: 47.49487, lon: 19.04488 },
+  const { to, from, setTo, setFrom } = useToFrom()
+  const { data, isLoading, refetch } = useQuery({
+    ...getItinerary({
+      from: from,
+      to: to,
       modes: [{ mode: Mode.Transit }, { mode: Mode.Walk }],
     }),
-  )
+    enabled: false,
+  })
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
 
-  // if (isLoading) return <h1>Loading...</h1>
+  const fastestItinerary = useMemo(() => {
+    const sortedItineraries = data?.plan?.itineraries
+      ?.slice()
+      .sort((a, b) => (a?.duration ?? 0) - (b?.duration ?? 0))
 
+    // if (!sortedItineraries) return []
+
+    return sortedItineraries?.at(0)
+  }, [data])
+
+  const duration = useMemo(() => formatDuration(fastestItinerary?.duration), [fastestItinerary])
+
+  const getLegCards = () => {
+    return fastestItinerary?.legs.map((leg, i) => <LegCard key={i} leg={leg! as Leg} />)
+  }
+
+  useEffect(() => {
+    if (to && from) {
+      onOpen()
+      refetch()
+    }
+  }, [to, from])
+  console.log(fastestItinerary?.end)
+  // if (isLoading) return <h1>Loading...</h1>
   return (
     <>
       <Button onPress={onOpen}>Open Drawer</Button>
@@ -26,22 +54,20 @@ export const ItineraryDrawer = () => {
         <DrawerContent>
           {(onClose) => (
             <>
-              <DrawerHeader className="flex flex-col gap-1">Drawer Title</DrawerHeader>
+              <DrawerHeader className="flex flex-col gap-1">Маршрут</DrawerHeader>
               <DrawerBody>
-                {isLoading ? (
-                  <h1>Loading...</h1>
-                ) : (
-                  data?.plan?.itineraries[0]?.legs.map((leg, i) => (
-                    <LegCard key={i} leg={leg! as Leg} />
-                  ))
-                )}
+                <div className="h-14 px-8 flex justify-between">
+                  <span className="text-lg">{duration}</span>
+                  <span>
+                    Пристигане:{" "}
+                    <span className="text-lg">{dayjs(fastestItinerary?.end).format("HH:MM")}</span>
+                  </span>
+                </div>
+                {isLoading ? <h1>Loading...</h1> : getLegCards()}
               </DrawerBody>
               <DrawerFooter>
                 <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
+                  Затвори
                 </Button>
               </DrawerFooter>
             </>

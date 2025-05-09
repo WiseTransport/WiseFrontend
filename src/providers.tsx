@@ -6,6 +6,7 @@ import { ReactNode } from "react"
 import { QueryClientProvider } from "@tanstack/react-query"
 import { client } from "@/features/WiseMap/api/shared.ts"
 import { ToastProvider } from "@heroui/toast"
+import { ToFromProvider } from "./features/WiseMap/contexts"
 
 declare module "@react-types/shared" {
   interface RouterConfig {
@@ -19,8 +20,10 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <HeroUIProvider navigate={navigate} useHref={useHref}>
       <QueryClientProvider client={client}>
-        <ToastProvider />
-        {children}
+        <ToFromProvider>
+          <ToastProvider />
+          {children}
+        </ToFromProvider>
       </QueryClientProvider>
     </HeroUIProvider>
   )

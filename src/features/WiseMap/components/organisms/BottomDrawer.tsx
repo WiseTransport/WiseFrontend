@@ -32,7 +32,7 @@ export default function BottomDrawer({
         isOpen={isOpen}
         placement="bottom"
         onOpenChange={onOpenChange}
-        className="pointer-events-auto w-3/6 min-w-[90%] max-h-80 max-w-xl sm:mx-auto mx-auto"
+        className="pointer-events-auto lg:w-3/6 w-full max-h-80 max-w-xl lg:mx-auto"
         classNames={{
           wrapper: "pointer-events-none",
         }}

@@ -7,6 +7,7 @@ import SearchBar from "@/features/WiseMap/components/organisms/SearchBar.tsx"
 import SideButtons from "@/features/WiseMap/components/organisms/SideButtons.tsx"
 import CurrentGeoButton from "@/features/WiseMap/components/molecules/CurrentGeoButton.tsx"
 import { BottomPanelControlContext, TripDataProvider } from "@/features/WiseMap/contexts.tsx"
+import { ItineraryDrawer } from "@/features/WiseMap/components/molecules/ItineraryDrawer"
 
 export const WiseMap = () => {
   const { onOpen, onOpenChange, isOpen, onClose } = useDisclosure()
@@ -24,6 +25,7 @@ export const WiseMap = () => {
           <SideButtons />
           <WiseMapContainer location={location} />
           <CurrentGeoButton setLocation={setLocation} />
+          <ItineraryDrawer />
           <BottomDrawer onOpen={onOpen} onOpenChange={onOpenChange} isOpen={isOpen}>
             {bottomPanelContent}
           </BottomDrawer>
