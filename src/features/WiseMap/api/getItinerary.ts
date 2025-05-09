@@ -8,8 +8,13 @@ import {
 import { graphql } from "@/features/WiseMap/api/graphql"
 
 const getItineraryQuery = graphql(`
-  query getItinerary($from: InputCoordinates, $to: InputCoordinates, $modes: [TransportMode]) {
-    plan(from: $from, to: $to, transportModes: $modes) {
+  query getItinerary(
+    $from: InputCoordinates
+    $to: InputCoordinates
+    $modes: [TransportMode]
+    $searchWindow: Long
+  ) {
+    plan(from: $from, to: $to, transportModes: $modes, searchWindow: $searchWindow) {
       itineraries {
         duration
         start
