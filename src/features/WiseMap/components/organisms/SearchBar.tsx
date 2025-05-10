@@ -9,21 +9,18 @@ import MarkerPin from "../../assets/icons/MarkerPin"
 import { Navbar } from "@heroui/navbar"
 import { useItinerary } from "../../contexts"
 import { RoundIconButton } from "@/components/atoms/RoundIconButton"
-import MapPointSVG from "../../assets/icons/MapPointSVG"
+import { MapPointSVG } from "../../assets/icons/MapPointSVG"
 import { getUserLocation } from "../shared"
-import { useMap } from "react-leaflet"
-import { LatLngTuple } from "leaflet"
 import { InputCoordinates } from "../../api/graphql/graphql"
 
 const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
-  const [showUserLoc, setShowUserLoc] = useState(false)
-  const [userLocLeft, setUserLocLeft] = useState("20rem")
   const [throughUserLoc, setThroughUserLoc] = useState<boolean>()
   const [userLoc, setUserLoc] = useState<InputCoordinates>()
   const [topPx, setTopPx] = useState("0")
   const [fromQuery, setFromQuery] = useState("")
   const [toQuery, setToQuery] = useState("")
-  const { setTo, to, from, setFrom } = useItinerary()
+  const [isInvalid, setIsInvalid] = useState(false)
+  const { setTo, to, from, setFrom, setLegs } = useItinerary()
 
   const { data: toData, refetch: toRefetch } = useQuery({
     queryKey: ["toGeocode"],
@@ -36,42 +33,58 @@ const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
     enabled: false,
   })
 
-  const handleFromSearch = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleFromGeocode = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && fromQuery.trim() !== "") {
-      setUserLoc(undefined)
       fromRefetch()
     }
   }
 
-  const handleToSearch = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleToGeocode = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && toQuery.trim() !== "") {
       toRefetch()
+      setTopPx("4.5rem")
     }
   }
 
   useEffect(() => {
+    if (fromQuery.trim() === "" || toQuery.trim() === "") return
+    if (fromData?.length === 0 || toData?.length === 0) {
+      setIsInvalid(true)
+
+      return
+    }
+    if (toData && (fromData || userLoc)) {
+      const toLoc = toData[0].geometry.location
+      setTo({ lat: toLoc.lat, lon: toLoc.lng })
+
+      if (userLoc) {
+        setFrom(userLoc)
+      } else if (fromData) {
+        const fromLoc = fromData[0].geometry.location
+        setFrom({ lat: fromLoc.lat, lon: fromLoc.lng })
+      }
+
+      setUserLoc(undefined)
+      setIsInvalid(false)
+      setFromQuery("")
+      setTopPx("0")
+    }
+  }, [toData, fromData, userLoc])
+
+  useEffect(() => {
+    if (fromData?.length === 0 || toData?.length === 0) {
+      setIsInvalid(true)
+      return
+    }
     if (toData && !(fromData || userLoc)) {
       const location = toData[0].geometry.location
       setLocation({
         latitude: location.lat,
         longitude: location.lng,
       })
-      setTopPx("4.5rem")
-
-      setUserLocLeft("12rem")
-      setShowUserLoc(true)
-    } else if (toData && (fromData || userLoc)) {
-      const toLoc = toData[0].geometry.location
-      setTo({ lat: toLoc.lat, lon: toLoc.lng })
-
-      if (!userLoc && fromData) {
-        const fromLoc = fromData[0].geometry.location
-        setFrom({ lat: fromLoc.lat, lon: fromLoc.lng })
-      } else {
-        setFrom(userLoc)
-      }
+      setIsInvalid(false)
     }
-  }, [toData, fromData, userLoc])
+  }, [toData])
 
   useEffect(() => {
     throughUserLoc && userLoc && setFromQuery(userLoc.lat + " " + userLoc.lon)
@@ -87,13 +100,14 @@ const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
     >
       <div className="absolute w-full">
         <CentredInput
+          isInvalid={isInvalid}
           placeholder="Откъде ще пътувате?"
           startContent={
             <div className="w-8 pr-2">
               <MarkerPin />
             </div>
           }
-          onKeyUp={handleFromSearch}
+          onKeyUp={handleFromGeocode}
           query={fromQuery}
           setQuery={setFromQuery}
           endContent={
@@ -111,13 +125,14 @@ const SearchBar = ({ setLocation }: { setLocation: (coords: any) => void }) => {
 
       <motion.div animate={{ top: topPx }} className="absolute w-full">
         <CentredInput
+          isInvalid={isInvalid}
           placeholder="Търси дестинация"
           startContent={
             <div className="w-8 pr-2">
               <MarkerPin />
             </div>
           }
-          onKeyUp={handleToSearch}
+          onKeyUp={handleToGeocode}
           query={toQuery}
           setQuery={setToQuery}
         />{" "}

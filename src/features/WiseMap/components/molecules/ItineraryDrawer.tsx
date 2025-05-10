@@ -12,7 +12,7 @@ import { formatDuration } from "../shared"
 import ArrowUpSVG from "../../assets/icons/ArrowUpSVG"
 
 export const ItineraryDrawer = () => {
-  const { to, from, setLegs } = useItinerary()
+  const { to, from, legs, setLegs } = useItinerary()
   const { data, isLoading, refetch, isRefetching, isStale } = useQuery({
     ...getItinerary({
       from: from,
