@@ -7,14 +7,14 @@ export const useBottomPanelControl = () => useContext(BottomPanelControlContext)
 
 export const LayersControlContext = createContext<
   | {
-      stopsEnabled: boolean | undefined
-      setStopsEnabled: (arg: boolean | undefined) => void
+      stopsEnabled: boolean
+      setStopsEnabled: (arg: boolean) => void
     }
   | undefined
 >(undefined)
 
 export const LayersControlProvider = ({ children }: { children: ReactNode }) => {
-  const [stopsEnabled, setStopsEnabled] = useState<boolean>()
+  const [stopsEnabled, setStopsEnabled] = useState<boolean>(true)
 
   return (
     <LayersControlContext.Provider value={{ stopsEnabled, setStopsEnabled }}>

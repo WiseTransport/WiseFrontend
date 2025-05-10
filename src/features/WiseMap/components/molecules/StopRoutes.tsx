@@ -15,11 +15,12 @@ const ZOOM_THRESHOLD = 15
 export const StopRoutes = () => {
   const bottomPanelControl = useBottomPanelControl()
   const { stopsEnabled: enabled, setStopsEnabled: setEnabled } = useLayersControl()
+  const [enabledByZoom, setEnabledByZoom] = useState(true)
   const [bbox, setBbox] = useState<GetStopsByBboxQueryVariables>()
 
   const { isPending, isError, data, error } = useQuery({
     ...getStopsByBbox(["stopsByBbox"], bbox!),
-    enabled,
+    enabled: enabled && enabledByZoom,
   })
 
   const map = useMapEvents({
@@ -34,7 +35,7 @@ export const StopRoutes = () => {
       })
     },
     zoomend: () => {
-      setEnabled(map.getZoom() >= ZOOM_THRESHOLD)
+      setEnabledByZoom(map.getZoom() >= ZOOM_THRESHOLD)
     },
   })
 
@@ -42,7 +43,7 @@ export const StopRoutes = () => {
     client.invalidateQueries({ queryKey: ["stopsByBbox"] }).then()
   }, [bbox])
 
-  if (!enabled) return
+  if (!(enabled && enabledByZoom)) return
 
   if (isPending) {
     console.log("loading...")
