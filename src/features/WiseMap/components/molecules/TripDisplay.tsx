@@ -61,7 +61,7 @@ export const TripDisplay = () => {
   if (tripDetails.isLoading && vehicleResult.isLoading) return <></>
 
   if (isPending) {
-    console.log("loading tripdata...")
+    // console.log("loading tripdata...")
     return <></>
   }
 

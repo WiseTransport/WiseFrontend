@@ -1,8 +1,8 @@
-import { Input } from "@heroui/input"
+import { Input, InputProps } from "@heroui/input"
 import { NavbarContent } from "@heroui/navbar"
 import { ChangeEvent, KeyboardEvent, ReactNode, useState } from "react"
 
-interface CentredInputProps {
+interface CentredInputProps extends InputProps {
   placeholder?: string
   startContent: ReactNode
   query: string
@@ -16,6 +16,7 @@ export const CentredInput = ({
   onKeyUp,
   query,
   setQuery,
+  ...inputProps
 }: CentredInputProps) => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value)
@@ -40,6 +41,7 @@ export const CentredInput = ({
         value={query}
         onChange={handleChange}
         onKeyUp={onKeyUp}
+        {...inputProps}
       />
     </NavbarContent>
   )

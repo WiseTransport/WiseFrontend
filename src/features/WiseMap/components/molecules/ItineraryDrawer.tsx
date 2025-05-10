@@ -51,7 +51,7 @@ export const ItineraryDrawer = () => {
   }, [to, from])
 
   useEffect(() => {
-    if (fastestItinerary) setLegs(fastestItinerary.legs)
+    setLegs(fastestItinerary?.legs)
   }, [fastestItinerary])
 
   return (
@@ -76,6 +76,8 @@ export const ItineraryDrawer = () => {
               <DrawerHeader className="flex flex-col gap-1">Маршрут</DrawerHeader>
               {isLoading || isRefetching ? (
                 <h1>Зарежда се...</h1>
+              ) : data?.plan?.itineraries.length === 0 ? (
+                <span className="mx-auto text-lg">Няма намерен маршрут :(</span>
               ) : (
                 <DrawerBody>
                   <div className="h-14 px-2 flex justify-between">
@@ -97,8 +99,18 @@ export const ItineraryDrawer = () => {
                 </DrawerBody>
               )}
               <DrawerFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button color="primary" variant="light" onPress={onClose}>
                   Затвори
+                </Button>
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={() => {
+                    onClose()
+                    setLegs(undefined)
+                  }}
+                >
+                  Край
                 </Button>
               </DrawerFooter>
             </>

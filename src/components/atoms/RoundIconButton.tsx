@@ -17,9 +17,7 @@ export const RoundIconButton = forwardRef<HTMLButtonElement, RoundIconButtonProp
     <Button
       isIconOnly
       onPress={props.onPress}
-      className={
-        props.className + " bg-white rounded-full px-0 min-w-0 w-12 h-12 shadow-md p-1.5"
-      }
+      className={props.className + " bg-white rounded-full px-0 min-w-0 w-12 h-12 shadow-md p-1.5"}
       ref={ref}
     >
       {props.icon}

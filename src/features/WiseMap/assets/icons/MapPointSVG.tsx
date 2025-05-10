@@ -1,31 +1,14 @@
-import { HeroUISVGProps } from "@/types/svgProps.ts"
+import type { SVGProps } from "react"
 
-export default function MapPointSVG({
-  fill = "none",
-  size,
-  height,
-  width,
-}: HeroUISVGProps) {
+export function MapPointSVG(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      fill={fill}
-      height={size || height}
-      viewBox="0 0 24 24"
-      width={size || width}
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" {...props}>
       <path
-        d="M12.5 7.04148C12.3374 7.0142 12.1704 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13C13.6569 13 15 11.6569 15 10C15 9.82964 14.9858 9.6626 14.9585 9.5"
-        stroke="#EC442C"
-        strokeLinecap="round"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M5 15.2161C4.35254 13.5622 4 11.8013 4 10.1433C4 5.64588 7.58172 2 12 2C16.4183 2 20 5.64588 20 10.1433C20 14.6055 17.4467 19.8124 13.4629 21.6744C12.5343 22.1085 11.4657 22.1085 10.5371 21.6744C9.26474 21.0797 8.13831 20.1439 7.19438 19"
-        stroke="#EC442C"
-        strokeLinecap="round"
-        strokeWidth="1.5"
-      />
+        fill="#EC442C"
+        fillRule="evenodd"
+        d="M11.291 21.706L12 21zM12 21l.708.706a1 1 0 0 1-1.417 0l-.006-.007l-.017-.017l-.062-.063a48 48 0 0 1-1.04-1.106a50 50 0 0 1-2.456-2.908c-.892-1.15-1.804-2.45-2.497-3.734C4.535 12.612 4 11.248 4 10c0-4.539 3.592-8 8-8s8 3.461 8 8c0 1.248-.535 2.612-1.213 3.87c-.693 1.286-1.604 2.585-2.497 3.735a50 50 0 0 1-3.496 4.014l-.062.063l-.017.017l-.006.006zm0-8a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+        clipRule="evenodd"
+      ></path>
     </svg>
   )
 }

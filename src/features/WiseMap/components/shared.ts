@@ -1,5 +1,6 @@
 import dayjs from "dayjs"
-import { Leg, Mode, TransitMode } from "../api/graphql/graphql"
+import { InputCoordinates, Leg, Mode, TransitMode } from "../api/graphql/graphql"
+import { LatLngExpression } from "leaflet"
 
 export const getIconName = (mode: TransitMode | Mode) => {
   switch (mode) {
@@ -29,4 +30,17 @@ export const formatDuration = (duration: number | undefined) => {
   if (dur.minutes()) fmted += dur.minutes() + " мин."
 
   return fmted
+}
+
+export const getUserLocation = (setLocation: ({}: InputCoordinates) => void) => {
+  if (navigator.geolocation) {
+    return navigator.geolocation.getCurrentPosition(
+      (position) => setLocation({ lat: position.coords.latitude, lon: position.coords.longitude }),
+      (error) => {
+        console.error("Error get user location: ", error)
+      },
+    )
+  } else {
+    console.log("Geolocation is not supported be this browser")
+  }
 }
